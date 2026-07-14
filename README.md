@@ -3,7 +3,7 @@
 
 A sleek, dark theme for **Discord** and **Garry's Mod**, built on the Windows 11 **Fluent** design language. Smooth surfaces, subtle depth, and a cohesive look across both platforms.
 
-> Made from scratch. Inspired by Fluent — not forked from it.
+> Made from scratch. Inspired by Windows 11 Fluent Design Language.
 
 ---
 
