@@ -9,10 +9,10 @@ A sleek, dark theme for **Discord** and **Garry's Mod**, built on the Windows 11
 
 ## ✨ Features
 
-- **Fluent-inspired design** — acrylic/mica-style surfaces, rounded corners, and soft shadows drawn from Windows 11.
-- **Consistent across platforms** — the same visual identity whether you're chatting or in-game.
-- **Dark-first** — tuned for low-light comfort without crushing contrast.
-- **Lightweight** — no bloat, just the styling.
+- **Fluent-inspired design** - acrylic/mica-style surfaces, rounded corners, and soft shadows drawn from Windows 11.
+- **Consistent across platforms** - the same visual identity whether you're chatting or in-game.
+- **Dark-first** - tuned for low-light comfort without crushing contrast.
+- **Lightweight** - no bloat, just the styling.
 
 ---
 
