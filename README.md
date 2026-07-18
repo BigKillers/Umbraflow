@@ -9,7 +9,7 @@ across both platforms.
 | Platform | What it themes |
 |----------|----------------|
 | 🗨️ **Discord** | The whole client — chat, member list, panels, menus, settings. One file that **auto-switches** between Light / Dark / Onyx. |
-| 🎮 **Garry's Mod** | Main menu, loading screen, VGUI scheme (console/dialogs/spawnmenu), a Fluent killfeed, and custom logos. |
+| 🎮 **Garry's Mod** | Main menu, loading screen, VGUI scheme (console/dialogs/spawnmenu), and custom logos. |
 
 ---
 
@@ -100,8 +100,7 @@ Light and Onyx. The layout is written once and shared by all three.
 ## 🎮 Garry's Mod
 
 The `Gmod-Theme/` folder mirrors your `garrysmod` directory and includes the main
-menu, loading screen, VGUI scheme (`resource/SourceScheme.res`), a Fluent killfeed
-addon (`addons/umbraflow/`), and custom logos.
+menu, loading screen, VGUI scheme (`resource/SourceScheme.res`), and custom logos.
 
 ### Install
 
@@ -110,8 +109,8 @@ addon (`addons/umbraflow/`), and custom logos.
 1. Open your GMod install, e.g.
    `…\Steam\steamapps\common\GarrysMod\garrysmod\`
 2. Copy the **contents** of `Gmod-Theme/` into that `garrysmod\` folder, merging
-   and overwriting when prompted (`html/`, `resource/`, `addons/`, `gamemodes/`,
-   and `lua/` each land in their matching folder).
+   and overwriting when prompted (`html/`, `resource/`, and `gamemodes/` each land
+   in their matching folder).
 3. Restart Garry's Mod.
 
 To revert, restore your backup or verify the game's files through Steam.
