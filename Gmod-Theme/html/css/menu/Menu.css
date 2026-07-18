@@ -1,0 +1,530 @@
+/* =============================================================================
+   UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
+   Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
+
+   FLUENT TOKENS — identical in every stylesheet of this theme so each file
+   stays self-sufficient (some are loaded by pages that don't pull in the rest).
+   Swap the accent block below to reskin; no rule hard-codes a colour.
+   ========================================================================== */
+:root {
+    /* Accent — Umbraflow violet by default, Fluent green alternative in comments. */
+    --accent:             #b18cff;  /* green: #6ccb5f */
+    --accent-hover:       #a274ff;  /* green: #57c24a */
+    --accent-pressed:     #8b57e6;  /* green: #4caf43 */
+    --accent-text:        #d8c4ff;  /* green: #a7e59d */
+    --accent-on:          #000000;  /* green: #000000 */
+    --accent-subtle:      rgba(177, 140, 255, 0.16);
+    --accent-glow:        rgba(177, 140, 255, 0.28);
+
+    /* Surfaces */
+    --surface-base:       #202020;
+    --surface-alt:        #1c1c1c;
+    --surface-layer:      #282828;
+    --surface-card:       #2b2b2b;
+    --surface-card-hover: #323232;
+    --acrylic:            rgba(44, 44, 44, 0.86);
+    --acrylic-strong:     rgba(32, 32, 32, 0.92);
+    --smoke:              rgba(0, 0, 0, 0.36);
+
+    /* Control fills */
+    --control:            rgba(255, 255, 255, 0.0605);
+    --control-hover:      rgba(255, 255, 255, 0.0837);
+    --control-pressed:    rgba(255, 255, 255, 0.0326);
+    --control-disabled:   rgba(255, 255, 255, 0.0419);
+    --subtle-hover:       rgba(255, 255, 255, 0.0605);
+    --subtle-pressed:     rgba(255, 255, 255, 0.0419);
+
+    /* Strokes */
+    --stroke:             rgba(255, 255, 255, 0.0698);
+    --stroke-strong:      rgba(255, 255, 255, 0.093);
+    --stroke-card:        rgba(255, 255, 255, 0.0578);
+    --stroke-divider:     rgba(255, 255, 255, 0.0837);
+    --stroke-flyout:      rgba(0, 0, 0, 0.2);
+
+    /* Text */
+    --text:               #ffffff;
+    --text-secondary:     rgba(255, 255, 255, 0.786);
+    --text-tertiary:      rgba(255, 255, 255, 0.5442);
+    --text-disabled:      rgba(255, 255, 255, 0.3628);
+
+    /* Semantic */
+    --critical:           #ff99a4;
+    --critical-fill:      #c42b1c;
+    --success:            #6ccb5f;
+
+    /* Shape, elevation, motion */
+    --radius-control:     4px;
+    --radius-card:        7px;
+    --radius-overlay:     8px;
+    --shadow-card:        0 2px 4px rgba(0, 0, 0, 0.26);
+    --shadow-flyout:      0 8px 16px rgba(0, 0, 0, 0.34);
+    --shadow-dialog:      0 32px 64px rgba(0, 0, 0, 0.44), 0 2px 21px rgba(0, 0, 0, 0.26);
+    --ease:               cubic-bezier(0, 0, 0, 1);
+    --ease-out:           cubic-bezier(0.1, 0.9, 0.2, 1);
+    --dur-fast:           0.083s;
+    --dur:                0.167s;
+    --dur-slow:           0.25s;
+
+    /* Type */
+    --font:         "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Segoe UI Variable Display", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-mono:    "Cascadia Mono", "Cascadia Code", Consolas, monospace;
+}
+
+BODY {
+    overflow: hidden;
+    background-color: transparent;
+    font-family: var(--font);
+    -webkit-user-select: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    -webkit-font-smoothing: antialiased;
+    outline: none;
+}
+
+INPUT {
+    -webkit-user-select: auto;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text);
+    background-color: var(--control);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    border-radius: var(--radius-control);
+}
+
+/* Fluent text fields grow an accent underline on focus rather than a full ring. */
+INPUT.searchbox, INPUT.gm_search {
+    box-sizing: border-box;
+    border: 1px solid var(--stroke);
+    border-bottom: 1px solid var(--stroke-strong);
+    border-radius: var(--radius-control);
+    background-color: var(--control);
+    color: var(--text);
+    height: 32px;
+    margin-top: 6px;
+    padding: 4px 10px;
+    transition: background-color var(--dur) var(--ease),
+                border-bottom-color var(--dur) var(--ease);
+}
+
+INPUT.searchbox:hover, INPUT.gm_search:hover {
+    background-color: var(--control-hover);
+}
+
+INPUT.searchbox:focus, INPUT.gm_search:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 3px;
+}
+
+INPUT.searchbox {
+    float: right;
+    margin-right: 320px;
+    width: 15%;
+}
+
+INPUT.gm_search {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+INPUT[type="text"], INPUT[type="number"] {
+    box-sizing: border-box;
+    border: 1px solid var(--stroke);
+    border-bottom: 1px solid var(--stroke-strong);
+    border-radius: var(--radius-control);
+    background-color: var(--control);
+    color: var(--text);
+    padding: 4px 10px;
+    transition: background-color var(--dur) var(--ease),
+                border-bottom-color var(--dur) var(--ease);
+}
+
+INPUT[type="text"]:hover, INPUT[type="number"]:hover {
+    background-color: var(--control-hover);
+}
+
+INPUT[type="text"]:focus, INPUT[type="number"]:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 3px;
+}
+
+A {
+    text-decoration: none;
+    color: var(--accent-text);
+    transition: color var(--dur) var(--ease);
+}
+
+A:not(:disabled) {
+    cursor: pointer;
+}
+
+A:hover {
+    color: var(--accent);
+}
+
+A:active {
+    color: var(--accent-pressed);
+}
+
+DIV.page {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 50px;
+}
+
+UL.category {
+    margin: 10px;
+    padding: 0;
+}
+
+UL.category LI:first-child {
+    list-style: none;
+    padding: 5px;
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+UL.category LI:first-child small {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+}
+
+UL.category LI.icon {
+    display: inline-block;
+}
+
+.scrollable {
+    overflow: auto;
+    right: 0px;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    position: absolute;
+}
+
+/* -----------------------------------------------------------------------------
+   Buttons — Fluent's accent button is a flat accent fill with dark text and a
+   darker bottom edge. Hover lightens, press dims both fill and text.
+   -------------------------------------------------------------------------- */
+
+.btn-primary, .btn-primary-disabled, .btn-back {
+    background: var(--accent);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+    color: var(--accent-on);
+    font-family: var(--font);
+    font-weight: 600;
+    text-shadow: none;
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: none;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.btn-primary:hover, .btn-back:hover {
+    background: var(--accent-hover);
+    color: var(--accent-on);
+}
+
+.btn-primary:active, .btn-back:active {
+    background: var(--accent-pressed);
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.btn-primary-disabled {
+    background: var(--control-disabled);
+    border-color: transparent;
+    color: var(--text-disabled);
+    cursor: default;
+}
+
+.btn-back {
+    height: 32px;
+}
+
+/* -----------------------------------------------------------------------------
+   Tiles and cards
+   -------------------------------------------------------------------------- */
+
+DIV.gridicon {
+    position: relative;
+    -webkit-background-size: cover;
+    height: 100px;
+    width: 300px;
+    float: left;
+    margin: 4px;
+    background-position: center;
+    background-color: var(--surface-card);
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+DIV.gridicon:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+DIV.gridicon name {
+    position: absolute;
+    display: block;
+    left: 0px;
+    right: 0px;
+    height: 18px;
+    top: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+    color: var(--text);
+    padding: 8px;
+    background-color: var(--acrylic-strong);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+}
+
+DIV.disabled name {
+    text-decoration: line-through;
+    color: var(--critical);
+}
+
+DIV.disabled {
+    opacity: 0.6;
+}
+
+/* -----------------------------------------------------------------------------
+   Top nav strip — Fluent CommandBar
+   -------------------------------------------------------------------------- */
+
+.topnav {
+    background-color: var(--acrylic);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    border: 1px solid var(--stroke-card);
+    padding: 5px;
+    border-radius: var(--radius-overlay);
+    font-size: 12px;
+}
+
+.topnav A {
+    color: var(--text-secondary);
+    margin: 0px 2px;
+    background-color: transparent;
+    padding: 4px 10px;
+    border-radius: var(--radius-control);
+    text-shadow: none;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.topnav A:hover {
+    background-color: var(--subtle-hover);
+    color: var(--text);
+    text-shadow: none;
+}
+
+.topnav A:active {
+    background-color: var(--subtle-pressed);
+    color: var(--text-tertiary);
+}
+
+.whiterounded {
+    background-color: var(--surface-card);
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-card);
+}
+
+pagination {
+    position: absolute;
+    bottom: 4px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+left {
+    float: left;
+}
+
+right {
+    float: right;
+}
+
+loading {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-align: center;
+    display: block;
+    margin: 64px;
+}
+
+/* Version pill — Fluent InfoBadge */
+#version {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    background-color: var(--acrylic);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-control);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+#version:hover {
+    background-color: var(--surface-card-hover);
+    color: var(--text);
+}
+
+/* -----------------------------------------------------------------------------
+   News card
+   -------------------------------------------------------------------------- */
+
+.news {
+    position: absolute;
+    right: 50px;
+    top: 75px;
+}
+
+.news_buttons {
+    margin-top: 6px;
+    display: block;
+}
+
+.news_buttons div {
+    display: block;
+    float: right;
+    width: 8px;
+    height: 8px;
+    background: var(--text-disabled);
+    margin-left: 6px;
+    margin-top: 4px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.news_buttons div:hover {
+    background: var(--text-secondary);
+    transform: scale(1.25);
+}
+
+.news_buttons div.new {
+    background: var(--accent);
+}
+
+.news_buttons div.selected.new {
+    background: var(--accent);
+    transform: scale(1.4);
+}
+
+.news_buttons div.selected {
+    background: var(--text);
+    transform: scale(1.4);
+}
+
+.news_item {
+    background: var(--surface-card);
+    background-size: cover;
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-overlay);
+    box-shadow: var(--shadow-flyout);
+    margin-right: 0px;
+    margin-left: auto;
+    height: 256px;
+    width: 512px;
+    position: relative;
+    overflow: hidden;
+}
+
+.news_item div font {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-shadow: none;
+    display: block;
+}
+
+.news_item div span {
+    transition: color var(--dur) var(--ease);
+}
+
+.news_item div span:hover {
+    color: var(--accent);
+    cursor: pointer;
+}
+
+.news_item div {
+    background: var(--acrylic-strong);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    border-radius: 0;
+    border-top: 1px solid var(--stroke-card);
+    display: block;
+    color: var(--text);
+    padding: 10px 14px;
+    font-size: 20px;
+    text-align: right;
+    cursor: default;
+    font-weight: 600;
+    text-shadow: none;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    left: 0;
+}
+
+/* 800x600 and lower */
+@media (max-width: 800px) {
+    .news_item {
+        height: 128px;
+        width: 256px;
+    }
+
+    .news_item div font {
+        font-size: 10px;
+    }
+
+    .news_item div {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+}
+
+/* 640x480 and lower */
+@media (max-width: 640px) {
+    .news {
+        right: 5px;
+        top: 65px;
+    }
+}

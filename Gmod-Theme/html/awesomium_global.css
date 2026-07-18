@@ -1,0 +1,206 @@
+/* =============================================================================
+   UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
+   Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
+
+   FLUENT — global stylesheet
+   Injected by the engine into every HTML panel. Kept deliberately narrow in
+   scope (form controls + scrollbars only) so it can't disfigure HTML HUDs
+   drawn by servers or other addons.
+   ========================================================================== */
+
+:root {
+    /* -- Accent. Swap these five values to reskin the entire theme. --------
+       Umbraflow violet (default) : #b18cff  #a274ff  #8b57e6  #d8c4ff  #000000
+       Fluent green               : #6ccb5f  #57c24a  #4caf43  #a7e59d  #000000  */
+    --accent:           #b18cff;
+    --accent-hover:     #a274ff;
+    --accent-pressed:   #8b57e6;
+    --accent-text:      #d8c4ff;
+    --accent-on:        #000000;
+
+    /* -- Surfaces --------------------------------------------------------- */
+    --surface-base:     #202020;
+    --surface-alt:      #1c1c1c;
+    --surface-layer:    #282828;
+    --surface-card:     #2b2b2b;
+
+    /* -- Control fills ---------------------------------------------------- */
+    --control:          rgba(255, 255, 255, 0.0605);
+    --control-hover:    rgba(255, 255, 255, 0.0837);
+    --control-pressed:  rgba(255, 255, 255, 0.0326);
+    --control-disabled: rgba(255, 255, 255, 0.0419);
+
+    /* -- Strokes ---------------------------------------------------------- */
+    --stroke:           rgba(255, 255, 255, 0.0698);
+    --stroke-strong:    rgba(255, 255, 255, 0.093);
+
+    /* -- Text ------------------------------------------------------------- */
+    --text:             #ffffff;
+    --text-secondary:   rgba(255, 255, 255, 0.786);
+    --text-disabled:    rgba(255, 255, 255, 0.3628);
+
+    /* -- Shape and motion ------------------------------------------------- */
+    --radius-control:   4px;
+    --ease:             cubic-bezier(0, 0, 0, 1);
+    --dur:              0.167s;
+}
+
+/* -----------------------------------------------------------------------------
+   Checkbox — Fluent fills the box with the accent when checked and draws the
+   glyph in --accent-on, rather than tinting a dark box.
+   -------------------------------------------------------------------------- */
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: var(--control);
+    border: 1px solid var(--stroke-strong);
+    border-radius: 3px;
+
+    width: 15px;
+    height: 15px;
+    margin: 3px 3px 0px 4px;
+
+    -webkit-transition: background-color var(--dur) var(--ease),
+                        border-color var(--dur) var(--ease);
+    transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
+}
+
+input[type="checkbox"]:hover {
+    background-color: var(--control-hover);
+    border-color: var(--stroke-strong);
+}
+
+input[type="checkbox"]:active {
+    background-color: var(--control-pressed);
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path style='fill: rgb(0,0,0);' d='M 74 285 Q 206 422 206 422 L 442 129 L 377 77 L 200 295 L 131 229 L 74 285' /></svg>");
+}
+
+input[type="checkbox"]:checked:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+input[type="checkbox"]:checked:active {
+    background-color: var(--accent-pressed);
+    border-color: var(--accent-pressed);
+}
+
+input[type="checkbox"]:disabled {
+    background-color: var(--control-disabled);
+    border-color: var(--stroke);
+}
+
+input[type="checkbox"]:disabled:checked {
+    background-color: var(--text-disabled);
+    border-color: transparent;
+}
+
+/* -----------------------------------------------------------------------------
+   Radio — Fluent draws an accent ring with a filled dot, and shrinks the dot
+   on press.
+   -------------------------------------------------------------------------- */
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: var(--control);
+    border: 1px solid var(--stroke-strong);
+    border-radius: 9999px;
+
+    width: 15px;
+    height: 15px;
+    margin: 3px 3px 0px 5px;
+
+    -webkit-transition: background-color var(--dur) var(--ease),
+                        border-color var(--dur) var(--ease);
+    transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
+}
+
+input[type="radio"]:hover {
+    background-color: var(--control-hover);
+}
+
+input[type="radio"]:active {
+    background-color: var(--control-pressed);
+}
+
+input[type="radio"]:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='512px' height='512px' viewBox='0 0 512 512'><circle cx='256' cy='256' r='150' style='fill: rgb(0,0,0);'/></svg>");
+}
+
+input[type="radio"]:checked:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='512px' height='512px' viewBox='0 0 512 512'><circle cx='256' cy='256' r='172' style='fill: rgb(0,0,0);'/></svg>");
+}
+
+input[type="radio"]:checked:active {
+    background-color: var(--accent-pressed);
+    border-color: var(--accent-pressed);
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='512px' height='512px' viewBox='0 0 512 512'><circle cx='256' cy='256' r='120' style='fill: rgb(0,0,0);'/></svg>");
+}
+
+input[type="radio"]:disabled {
+    background-color: var(--control-disabled);
+    border-color: var(--stroke);
+}
+
+input[type="radio"]:disabled:checked {
+    background-color: var(--text-disabled);
+    border-color: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='512px' height='512px' viewBox='0 0 512 512'><circle cx='256' cy='256' r='150' style='fill: rgb(32,32,32);'/></svg>");
+}
+
+/* -----------------------------------------------------------------------------
+   Scrollbars — Windows 11 draws a thin transparent rail with a rounded thumb
+   that brightens on hover.
+   -------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-radius: 9999px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    min-height: 32px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.36);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: rgba(255, 255, 255, 0.48);
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+/* -- Text selection ------------------------------------------------------- */
+
+::selection {
+    background-color: var(--accent);
+    color: var(--accent-on);
+}

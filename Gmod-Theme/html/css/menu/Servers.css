@@ -1,0 +1,1071 @@
+/* =============================================================================
+   UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
+   Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
+
+   FLUENT TOKENS — identical in every stylesheet of this theme so each file
+   stays self-sufficient (some are loaded by pages that don't pull in the rest).
+   Swap the accent block below to reskin; no rule hard-codes a colour.
+   ========================================================================== */
+:root {
+    /* Accent — Umbraflow violet by default, Fluent green alternative in comments. */
+    --accent:             #b18cff;  /* green: #6ccb5f */
+    --accent-hover:       #a274ff;  /* green: #57c24a */
+    --accent-pressed:     #8b57e6;  /* green: #4caf43 */
+    --accent-text:        #d8c4ff;  /* green: #a7e59d */
+    --accent-on:          #000000;  /* green: #000000 */
+    --accent-subtle:      rgba(177, 140, 255, 0.16);
+    --accent-glow:        rgba(177, 140, 255, 0.28);
+
+    /* Surfaces */
+    --surface-base:       #202020;
+    --surface-alt:        #1c1c1c;
+    --surface-layer:      #282828;
+    --surface-card:       #2b2b2b;
+    --surface-card-hover: #323232;
+    --acrylic:            rgba(44, 44, 44, 0.86);
+    --acrylic-strong:     rgba(32, 32, 32, 0.92);
+    --smoke:              rgba(0, 0, 0, 0.36);
+
+    /* Control fills */
+    --control:            rgba(255, 255, 255, 0.0605);
+    --control-hover:      rgba(255, 255, 255, 0.0837);
+    --control-pressed:    rgba(255, 255, 255, 0.0326);
+    --control-disabled:   rgba(255, 255, 255, 0.0419);
+    --subtle-hover:       rgba(255, 255, 255, 0.0605);
+    --subtle-pressed:     rgba(255, 255, 255, 0.0419);
+
+    /* Strokes */
+    --stroke:             rgba(255, 255, 255, 0.0698);
+    --stroke-strong:      rgba(255, 255, 255, 0.093);
+    --stroke-card:        rgba(255, 255, 255, 0.0578);
+    --stroke-divider:     rgba(255, 255, 255, 0.0837);
+    --stroke-flyout:      rgba(0, 0, 0, 0.2);
+
+    /* Text */
+    --text:               #ffffff;
+    --text-secondary:     rgba(255, 255, 255, 0.786);
+    --text-tertiary:      rgba(255, 255, 255, 0.5442);
+    --text-disabled:      rgba(255, 255, 255, 0.3628);
+
+    /* Semantic */
+    --critical:           #ff99a4;
+    --critical-fill:      #c42b1c;
+    --success:            #6ccb5f;
+
+    /* Shape, elevation, motion */
+    --radius-control:     4px;
+    --radius-card:        7px;
+    --radius-overlay:     8px;
+    --shadow-card:        0 2px 4px rgba(0, 0, 0, 0.26);
+    --shadow-flyout:      0 8px 16px rgba(0, 0, 0, 0.34);
+    --shadow-dialog:      0 32px 64px rgba(0, 0, 0, 0.44), 0 2px 21px rgba(0, 0, 0, 0.26);
+    --ease:               cubic-bezier(0, 0, 0, 1);
+    --ease-out:           cubic-bezier(0.1, 0.9, 0.2, 1);
+    --dur-fast:           0.083s;
+    --dur:                0.167s;
+    --dur-slow:           0.25s;
+
+    /* Type */
+    --font:         "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Segoe UI Variable Display", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-mono:    "Cascadia Mono", "Cascadia Code", Consolas, monospace;
+}
+
+.servers {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
+    background-color: var(--surface-base);
+}
+
+/* -----------------------------------------------------------------------------
+   Gamemode picker cards
+   -------------------------------------------------------------------------- */
+
+.gamemode {
+    margin-right: 6px;
+    margin-bottom: 6px;
+    background-color: var(--surface-card);
+    padding: 5px 20px;
+    border-radius: var(--radius-card);
+    cursor: pointer;
+    position: relative;
+    height: 34px;
+    overflow: hidden;
+    border: 1px solid var(--stroke-card);
+    box-shadow: var(--shadow-card);
+    transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
+}
+
+.gamemode:hover {
+    background-color: var(--surface-card-hover);
+    border-color: var(--stroke-strong);
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px);
+}
+
+.gamemode:active {
+    background-color: var(--surface-layer);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.gamemode .name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    position: absolute;
+    left: 40px;
+    top: 6px;
+    font-size: 18px;
+    white-space: nowrap;
+    color: var(--text);
+}
+
+/* Fluent badge — pill, accent fill, dark glyph text. */
+.gamemode .name tag {
+    background: var(--accent);
+    color: var(--accent-on);
+    padding: 2px 10px;
+    margin-left: 10px;
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+    top: -3px;
+    border-radius: 9999px;
+}
+
+.gamemode .stats {
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    position: absolute;
+    bottom: 4px;
+    left: 43px;
+}
+
+.gamemode IMG {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 8px;
+    top: 9px;
+}
+
+H1 small {
+    color: var(--text-tertiary);
+    font-size: 50%;
+    font-weight: 400;
+    padding-left: 8px;
+}
+
+/* -----------------------------------------------------------------------------
+   Server list — a Fluent DataGrid inside a card
+   -------------------------------------------------------------------------- */
+
+.serverlist_layout {
+    display: -webkit-box;
+    -webkit-box-pack: justify;
+    -webkit-box-align: start;
+    position: absolute;
+    top: 112px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: var(--surface-base);
+    z-index: 1001;
+}
+
+.serverlist {
+    -webkit-box-flex: 1;
+    position: relative;
+    background-color: var(--surface-card);
+    padding: 10px;
+    border-radius: var(--radius-overlay);
+    box-sizing: border-box;
+    height: 100%;
+    color: var(--text-secondary);
+    border: 1px solid var(--stroke-card);
+    box-shadow: var(--shadow-card);
+    z-index: 1001;
+}
+
+.serverlist.found_servers {
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: relative;
+    margin-top: 5px;
+    padding: 1px;
+}
+
+.serverlist ping,
+.serverlist maxplayers,
+.serverlist players,
+.serverlist map,
+.serverlist rank,
+.serverlist lastvisited {
+    width: 50px;
+    font-size: 12px;
+    overflow: hidden;
+    text-align: center;
+    display: block;
+    color: var(--text-tertiary);
+    background: transparent;
+}
+
+.serverlist name {
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 13px;
+    display: block;
+    margin-right: 3px;
+    -webkit-box-flex: 1;
+    line-height: 18px;
+    color: var(--text);
+    text-overflow: ellipsis;
+}
+
+.serverlist name span {
+    vertical-align: top;
+}
+
+.serverlist name tag {
+    background: var(--critical-fill);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 8px;
+    margin-left: 6px;
+    margin-top: 2px;
+    vertical-align: top;
+    display: inline-block;
+    line-height: normal;
+    border-radius: 9999px;
+}
+
+.serverlist name .flag {
+    position: relative;
+    top: -2px;
+}
+
+.serverlist name tag.future {
+    background: var(--accent);
+    color: var(--accent-on);
+}
+
+.serverlist name .passworded {
+    margin-right: 4px;
+}
+
+.serverlist lastvisited {
+    width: auto;
+    padding-right: 5px;
+    text-align: right;
+}
+
+.serverlist map {
+    width: 90px;
+    text-align: center;
+}
+
+.serverlist players {
+    width: 48px;
+}
+
+.serverlist ping {
+    width: 32px;
+}
+
+.serverlist rank {
+    width: 64px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.serverlist .server rank {
+    background-image: url('../../img/rank1.png');
+}
+
+.serverlist .server rank.rank5 {
+    background-image: url('../../img/rank5.png');
+}
+
+.serverlist .server rank.rank4 {
+    background-image: url('../../img/rank4.png');
+}
+
+.serverlist .server rank.rank3 {
+    background-image: url('../../img/rank3.png');
+}
+
+.serverlist .server rank.rank2 {
+    background-image: url('../../img/rank2.png');
+}
+
+/* Rows carry no border — Fluent separates them with fill, not rules. */
+.serverlist .server {
+    height: 18px;
+    background-color: transparent;
+    padding: 4px 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: -webkit-box;
+    -webkit-box-pack: justify;
+    -webkit-box-align: stretch;
+    line-height: 18px;
+    border-bottom: none;
+    border-radius: var(--radius-control);
+    position: relative;
+    transition: background-color var(--dur-fast) var(--ease);
+}
+
+.serverlist .server:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.serverlist .empty {
+    color: var(--text-disabled);
+}
+
+.serverlist .missingmap map {
+    color: var(--critical);
+}
+
+.serverlist .empty players {
+    color: var(--critical);
+}
+
+.serverlist .server:hover {
+    background-color: var(--subtle-hover);
+}
+
+.serverlist .server:active {
+    background-color: var(--subtle-pressed);
+}
+
+/* Header row: transparent, divider underneath, secondary text. */
+.serverlist .header {
+    background-color: transparent;
+    position: absolute;
+    border-radius: 0;
+    border-bottom: 1px solid var(--stroke-divider);
+    padding: 4px 6px 8px 6px;
+    font-size: 12px;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    display: -webkit-box;
+    -webkit-box-pack: justify;
+    -webkit-box-align: stretch;
+    line-height: 16px;
+    color: var(--text-tertiary);
+}
+
+.serverlist .body {
+    top: 36px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    background-color: transparent;
+}
+
+.serverlist .header ping,
+.serverlist .header maxplayers,
+.serverlist .header players,
+.serverlist .header map,
+.serverlist .header name,
+.serverlist .header rank {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-align: center;
+    cursor: pointer;
+    transition: color var(--dur) var(--ease);
+}
+
+.serverlist .header ping:hover,
+.serverlist .header maxplayers:hover,
+.serverlist .header players:hover,
+.serverlist .header map:hover,
+.serverlist .header name:hover,
+.serverlist .header rank:hover {
+    color: var(--text);
+}
+
+@media screen and (min-width: 1280px) {
+    .serverlist .servers ping,
+    .serverlist .servers maxplayers,
+    .serverlist .servers players,
+    .serverlist .servers map,
+    .serverlist .servers rank {
+        font-size: 13px;
+    }
+    .serverlist name {
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .serverlist map {
+        width: 130px;
+    }
+    .serverlist .header name {
+        padding: 0;
+    }
+}
+
+@media screen and (min-width: 1650px) {
+    .serverlist map {
+        width: 170px;
+    }
+}
+
+H1.menuheader {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0;
+    text-shadow: none;
+}
+
+H1.menuheader small {
+    font-family: var(--font);
+    color: var(--text-tertiary);
+    font-weight: 400;
+    text-shadow: none;
+}
+
+A.bglink {
+    color: var(--accent-on);
+    font-weight: 600;
+    background-color: var(--accent);
+    padding: 7px 12px;
+    border-radius: var(--radius-control);
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 4px;
+    position: absolute;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+    transition: background-color var(--dur) var(--ease);
+}
+
+A.bglink:hover {
+    background-color: var(--accent-hover);
+    color: var(--accent-on);
+}
+
+A.bglink:active {
+    background-color: var(--accent-pressed);
+    color: rgba(0, 0, 0, 0.55);
+}
+
+A.bglink img {
+    vertical-align: middle;
+}
+
+/* -----------------------------------------------------------------------------
+   Server detail pane
+   -------------------------------------------------------------------------- */
+
+.serverinfo {
+    width: 280px;
+    background-color: var(--surface-card);
+    padding: 10px 15px;
+    border-radius: var(--radius-overlay);
+    margin-left: 10px;
+    box-sizing: border-box;
+    height: 100%;
+    color: var(--text-secondary);
+    border: 1px solid var(--stroke-card);
+    box-shadow: var(--shadow-card);
+    z-index: 1001;
+    position: relative;
+}
+
+/* Windows caption-button behaviour: subtle until hovered, then critical red. */
+.serverinfo .closebtn {
+    width: 28px;
+    height: 24px;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    background: transparent;
+    background-image: url(../../img/cross.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.serverinfo .closebtn:hover {
+    background-color: var(--critical-fill);
+}
+
+.serverinfo .closebtn:active {
+    background-color: #a82418;
+}
+
+.serverinfo name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    letter-spacing: 0;
+    color: var(--text);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 32px;
+    box-sizing: border-box;
+}
+
+.serverinfo button {
+    width: 100%;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    padding: 8px 0;
+    color: var(--accent-on);
+    background-color: var(--accent);
+    border-radius: var(--radius-control);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    z-index: 1001;
+    position: relative;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.serverinfo button:hover {
+    background-color: var(--accent-hover);
+}
+
+.serverinfo button:active {
+    background-color: var(--accent-pressed);
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.serverinfo address {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    user-select: text;
+    color: var(--text-tertiary);
+}
+
+.serverinfo subinfo {
+    display: block;
+    color: var(--text-tertiary);
+    font-size: 13px;
+}
+
+.serverinfo > div {
+    display: table;
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+}
+
+.serverinfo div.cell {
+    display: table-cell;
+}
+
+.serverinfo header {
+    display: table-row;
+    height: 0;
+}
+
+.serverinfo players {
+    display: block;
+    height: 100%;
+    background-color: var(--surface-alt);
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-card);
+    box-sizing: border-box;
+    padding: 4px;
+    overflow: auto;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.serverinfo players * {
+    white-space: nowrap;
+}
+
+.serverinfo players .pname {
+    max-width: 170px;
+    overflow: hidden;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 900px) {
+    .serverinfo players .pname {
+        max-width: 95px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+.serverinfo footer {
+    display: table-row;
+    height: 0;
+    margin-top: 5px;
+}
+
+.serverinfo footer input[type=password] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 10px;
+    margin-bottom: 6px;
+    font-family: var(--font);
+    background-color: var(--control);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    border-radius: var(--radius-control);
+    z-index: 1001;
+    position: relative;
+}
+
+.serverinfo footer input[type=password]:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px;
+}
+
+/* Selected row: accent tint plus the list indicator, never a solid accent slab. */
+.activeserver {
+    background-color: var(--accent-subtle) !important;
+    color: var(--text) !important;
+}
+
+.activeserver::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 16px;
+    border-radius: 9999px;
+    background: var(--accent);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* -----------------------------------------------------------------------------
+   Install-gamemode call to action
+   -------------------------------------------------------------------------- */
+
+DIV.installgamemode {
+    height: 25px;
+    line-height: 26px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--accent-on);
+    padding: 6px;
+    border-radius: var(--radius-control);
+    position: absolute;
+    top: 10px;
+    right: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+    z-index: 100;
+    cursor: pointer;
+    background: var(--accent) url('../../img/gm_install32.png') no-repeat 6px center;
+    padding-left: 36px;
+    box-shadow: var(--shadow-card);
+    transition: background-color var(--dur) var(--ease);
+}
+
+DIV.installgamemode:hover {
+    background-color: var(--accent-hover);
+}
+
+DIV.installgamemode:active {
+    background-color: var(--accent-pressed);
+}
+
+SPAN.installgamemode {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    border-radius: 0 var(--radius-control) var(--radius-control) 0;
+    cursor: pointer;
+    background: var(--accent) url('../../img/gm_install16.png') no-repeat 13px center;
+    width: 42px;
+    transition: background-color var(--dur) var(--ease);
+}
+
+SPAN.installgamemode:hover {
+    background-color: var(--accent-hover);
+}
+
+.server_gamemodes {
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-overlay);
+    box-shadow: var(--shadow-card);
+    position: absolute;
+    top: 64px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: var(--surface-base);
+    box-sizing: border-box;
+}
+
+.server_gamemodes_inner {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.add_fav_server {
+    background-color: var(--surface-layer);
+    border-top: 1px solid var(--stroke-divider);
+    margin: 0 auto;
+    padding: 8px 10px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    box-sizing: border-box;
+}
+
+.add_fav_server button {
+    background-color: var(--accent);
+    color: var(--accent-on);
+    font-family: var(--font);
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+    border-radius: var(--radius-control);
+    padding: 4px 12px;
+    margin-left: 6px;
+    height: 32px;
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.add_fav_server button:hover {
+    background-color: var(--accent-hover);
+}
+
+.add_fav_server button:active {
+    background-color: var(--accent-pressed);
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.add_fav_server input {
+    box-sizing: border-box;
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    border-radius: var(--radius-control);
+    height: 32px;
+    padding: 4px 10px;
+    width: 200px;
+    font-family: var(--font);
+    background-color: var(--control);
+    color: var(--text);
+}
+
+.add_fav_server input:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+}
+
+.add_fav_server div.header {
+    display: -webkit-box;
+}
+
+.add_fav_server div.header span {
+    display: -webkit-box;
+    -webkit-box-flex: 1;
+    line-height: 32px;
+    color: var(--text-secondary);
+}
+
+.add_fav_server div.header div.fav_inputs {
+    display: -webkit-box;
+    -webkit-box-pack: end;
+}
+
+@media screen and (min-width: 1280px) {
+    .server_gamemodes {
+        margin: 0 auto;
+        width: 80%;
+        max-width: 1000px;
+    }
+}
+
+.noplayers {
+    opacity: 0.4;
+}
+
+/* -----------------------------------------------------------------------------
+   Filter rail
+   -------------------------------------------------------------------------- */
+
+.controls .searchbox {
+    border-radius: var(--radius-control);
+    margin-top: 4px;
+    padding: 7px 10px;
+    height: auto;
+    width: 15%;
+    min-width: 150px;
+    margin-right: 0px;
+    font-family: var(--font);
+    background: var(--control);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    box-sizing: border-box;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.controls .searchbox:hover {
+    background: var(--control-hover);
+}
+
+.controls .searchbox:focus {
+    outline: none;
+    background: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px;
+}
+
+DIV.page DIV.options UL LI.sb_filters {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 42px;
+    color: var(--text-secondary);
+    text-shadow: none;
+}
+
+DIV.page DIV.options UL LI.sb_filter_sep {
+    border-top: 1px solid var(--stroke-divider);
+    margin-right: 42px;
+    margin-bottom: 24px;
+}
+
+DIV.page DIV.options UL LI.sb_filters .passworded {
+    vertical-align: text-top;
+}
+
+.gmfilter_rev {
+    cursor: pointer;
+    vertical-align: middle;
+    margin-left: 3px;
+    margin-top: -2px;
+}
+
+.small {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-shadow: none;
+}
+
+.smalltextbox {
+    width: 72px;
+    border-radius: var(--radius-control);
+    padding: 4px 8px;
+    text-align: center;
+    font-family: var(--font);
+    background-color: var(--control);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+}
+
+.smalltextbox:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+/* Flag filters read as Fluent toggle chips: neutral, accent when preferred,
+   critical when avoided. */
+.flags_filter {
+    margin-top: 8px;
+    background: var(--surface-card);
+    border: 1px solid var(--stroke-card);
+    padding: 6px 6px 2px 6px;
+    border-radius: var(--radius-card);
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.flags_filter .flag {
+    cursor: pointer;
+    padding: 3px;
+    margin: 0 2px 4px 2px;
+    background: var(--control);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius-control);
+    color: var(--text-secondary);
+    transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.flags_filter .flag:hover {
+    background: var(--control-hover);
+}
+
+.flags_filter .flag.prefer {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-on);
+}
+
+.flags_filter .flag.avoid {
+    background: var(--critical-fill);
+    border-color: var(--critical-fill);
+    color: #ffffff;
+}
+
+@media screen and (max-width: 1024px) {
+    div.page.server_browser DIV.innerpage {
+        left: 180px;
+    }
+}
+
+@media screen and (min-width: 1367px) {
+    div.page.server_browser {
+        margin-right: 50px;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    div.page.server_browser DIV.innerpage {
+        left: 250px;
+        right: 5px;
+    }
+    DIV.page.server_browser DIV.options {
+        padding-left: 5px;
+    }
+    DIV.page.server_browser DIV.options UL {
+        margin-left: 0px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    DIV.page DIV.innerpage {
+        right: 5px;
+        top: 5px;
+        bottom: 5px;
+    }
+    .serverinfo {
+        padding: 5px;
+        width: 150px;
+    }
+    .serverlist .header {
+        top: 3px;
+        left: 3px;
+        right: 3px;
+    }
+    .serverlist .body {
+        top: 30px;
+        left: 3px;
+        right: 3px;
+        bottom: 3px;
+    }
+    .serverlist name {
+        font-size: 12px;
+        line-height: inherit;
+    }
+    .serverlist .server:not(:hover) lastvisited {
+        display: none;
+    }
+    .serverlist lastvisited .lasttime {
+        display: none;
+    }
+    .serverlist map {
+        width: 56px;
+    }
+    .serverlist players {
+        width: 46px;
+    }
+    .serverlist ping {
+        width: 18px;
+    }
+    .serverlist rank {
+        width: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+    .serverlist .server rank {
+        background-image: url('../../img/ranksmall1.png');
+    }
+    .serverlist .server rank.rank5 {
+        background-image: url('../../img/ranksmall5.png');
+    }
+    .serverlist .server rank.rank4 {
+        background-image: url('../../img/ranksmall4.png');
+    }
+    .serverlist .server rank.rank3 {
+        background-image: url('../../img/ranksmall3.png');
+    }
+    .serverlist .server rank.rank2 {
+        background-image: url('../../img/ranksmall2.png');
+    }
+}
+
+@media screen and (max-width: 1650px) {
+    .serverlist lastvisited lbl {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .serverinfo {
+        width: 215px;
+    }
+}
+
+name .favbutton {
+    background: url('../../img/notfavourite.png');
+    margin-right: 4px;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
+name .favbutton:hover {
+    background: url('../../img/notfavourite_add.png');
+}
+
+name .favbutton.favorited {
+    background: url('../../img/favourite.png');
+}
+
+name .favbutton.favorited:hover {
+    background: url('../../img/favourite_remove.png');
+}

@@ -1,0 +1,245 @@
+/* =============================================================================
+   UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
+   Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
+
+   FLUENT TOKENS — identical in every stylesheet of this theme so each file
+   stays self-sufficient. Swap the accent block below to reskin.
+   ========================================================================== */
+:root {
+    /* Accent — Umbraflow violet by default, Fluent green alternative in comments. */
+    --accent:             #b18cff;  /* green: #6ccb5f */
+    --accent-hover:       #a274ff;  /* green: #57c24a */
+    --accent-on:          #000000;  /* green: #000000 */
+
+    /* Surfaces */
+    --surface-base:       #202020;
+    --surface-alt:        #1c1c1c;
+    --surface-card:       #2b2b2b;
+    --acrylic:            rgba(44, 44, 44, 0.86);
+
+    /* Strokes */
+    --stroke:             rgba(255, 255, 255, 0.0698);
+    --stroke-card:        rgba(255, 255, 255, 0.0578);
+
+    /* Text */
+    --text:               #ffffff;
+    --text-secondary:     rgba(255, 255, 255, 0.786);
+    --text-tertiary:      rgba(255, 255, 255, 0.5442);
+
+    /* Shape, elevation, motion */
+    --radius-control:     4px;
+    --radius-overlay:     8px;
+    --shadow-card:        0 2px 4px rgba(0, 0, 0, 0.26);
+    --shadow-flyout:      0 8px 16px rgba(0, 0, 0, 0.34);
+    --ease:               cubic-bezier(0, 0, 0, 1);
+
+    /* Type */
+    --font:         "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Segoe UI Variable Display", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-mono:    "Cascadia Mono", "Cascadia Code", Consolas, monospace;
+}
+
+BODY
+{
+	overflow: hidden;
+	margin: 0px;
+
+	font-family: var(--font);
+	color: var(--text-secondary);
+	-webkit-font-smoothing: antialiased;
+
+	background-position: center;
+	background-size: cover;
+	background-color: var(--surface-base);
+}
+
+#container
+{
+	position: absolute;
+	text-align: center;
+	left: 50%;
+	top: 45%;
+	margin-top: -120px;
+	margin-left: -150px;
+	width: 300px;
+}
+
+/* Umbraflow mark: the eclipse with the Garry's Mod "g" baked into its centre
+   (one image — the old separate gmod_logo_brave.png was corrupt and wouldn't
+   decode, which is why the g wasn't showing). */
+#logo
+{
+	display: block;
+	margin: 0 auto 1.25em auto;
+	width: 240px;
+	height: auto;
+}
+
+/* Fluent ProgressBar: a thin, fully rounded accent track. */
+.progressbar
+{
+	margin: 0 auto;
+	width: 160px;
+	border-radius: 9999px;
+	text-align: left;
+	padding: 0;
+	background-color: rgba(255, 255, 255, 0.14);
+	overflow: hidden;
+	float: right;
+}
+
+.progressbar .inner
+{
+	border-radius: 9999px;
+	background-color: var(--accent);
+	width: 0.2%;
+	height: 4px;
+	transition: width 0.25s var(--ease);
+}
+
+#progress_text
+{
+	position: absolute;
+	width: 500px;
+	right: 180px;
+	bottom: 0px;
+	margin: 0 auto;
+	text-align: right;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--text-tertiary);
+	letter-spacing: 0;
+	text-shadow: none;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+@-webkit-keyframes walk
+{
+	0%
+	{
+		-webkit-transform: rotateZ(0deg);
+	}
+
+	100%
+	{
+		-webkit-transform: rotateZ(360deg);
+	}
+}
+
+.walk
+{
+	-webkit-animation: walk 10s linear infinite;
+	text-align: center;
+	background-color: var(--accent);
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	color: var(--accent-on);
+	font-size: 15px;
+	font-family: var(--font);
+	font-weight: 600;
+	border-radius: var(--radius-control);
+	display: inline-block;
+	border: none;
+	box-shadow: var(--shadow-card);
+}
+
+#spambox
+{
+	float: right;
+	overflow: hidden;
+	max-height: 100%;
+}
+
+/* The map screenshot sits behind a Fluent scrim so the caption stays legible
+   whatever the map looks like. */
+#background
+{
+	background-image: url( 'img/bg_dark.png' );
+	background-size: 100% 100%;
+	height: 100%;
+	position: relative;
+}
+
+#background::before
+{
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: -webkit-linear-gradient(left, rgba(20, 20, 20, 0.82) 0%, rgba(20, 20, 20, 0.45) 55%, rgba(20, 20, 20, 0.2) 100%);
+	background: linear-gradient(to right, rgba(20, 20, 20, 0.82) 0%, rgba(20, 20, 20, 0.45) 55%, rgba(20, 20, 20, 0.2) 100%);
+	pointer-events: none;
+}
+
+#background > *
+{
+	position: relative;
+	z-index: 1;
+}
+
+body.dark #background
+{
+	background-image: url( 'img/bg_dark.png' );
+}
+body.dark
+{
+	color: var(--text-secondary);
+}
+
+.server_info
+{
+	display: inline-block;
+	font-family: var(--font-display);
+	background-image: none;
+	padding: 20px;
+	padding-right: 180px;
+	visibility: hidden;
+	white-space: nowrap;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+.server_info.visible
+{
+	visibility: visible;
+}
+.server_info .text
+{
+	display: inline-block;
+	vertical-align: top;
+	max-width: 100%;
+
+	line-height: 42px;
+	font-size: 28px;
+	font-weight: 600;
+	color: var(--text);
+}
+.server_info .text > div
+{
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+/* Map name and gamemode are supporting metadata, not headlines. */
+.server_info .text > div#serverMap,
+.server_info .text > div#serverGamemode
+{
+	font-family: var(--font);
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 22px;
+	color: var(--text-tertiary);
+}
+.server_info #mapimg
+{
+	width: 128px;
+	height: 128px;
+	background: var(--surface-card);
+	border: 1px solid var(--stroke-card);
+	border-radius: var(--radius-overlay);
+	box-shadow: var(--shadow-flyout);
+	margin-right: 16px;
+	float: left;
+}

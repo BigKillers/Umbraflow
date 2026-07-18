@@ -1,0 +1,703 @@
+/* =============================================================================
+   UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
+   Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
+
+   FLUENT TOKENS — identical in every stylesheet of this theme so each file
+   stays self-sufficient (some are loaded by pages that don't pull in the rest).
+   Swap the accent block below to reskin; no rule hard-codes a colour.
+   ========================================================================== */
+:root {
+    /* Accent — Umbraflow violet by default, Fluent green alternative in comments. */
+    --accent:             #b18cff;  /* green: #6ccb5f */
+    --accent-hover:       #a274ff;  /* green: #57c24a */
+    --accent-pressed:     #8b57e6;  /* green: #4caf43 */
+    --accent-text:        #d8c4ff;  /* green: #a7e59d */
+    --accent-on:          #000000;  /* green: #000000 */
+    --accent-subtle:      rgba(177, 140, 255, 0.16);
+    --accent-glow:        rgba(177, 140, 255, 0.28);
+
+    /* Surfaces */
+    --surface-base:       #202020;
+    --surface-alt:        #1c1c1c;
+    --surface-layer:      #282828;
+    --surface-card:       #2b2b2b;
+    --surface-card-hover: #323232;
+    --acrylic:            rgba(44, 44, 44, 0.86);
+    --acrylic-strong:     rgba(32, 32, 32, 0.92);
+    --smoke:              rgba(0, 0, 0, 0.36);
+
+    /* Control fills */
+    --control:            rgba(255, 255, 255, 0.0605);
+    --control-hover:      rgba(255, 255, 255, 0.0837);
+    --control-pressed:    rgba(255, 255, 255, 0.0326);
+    --control-disabled:   rgba(255, 255, 255, 0.0419);
+    --subtle-hover:       rgba(255, 255, 255, 0.0605);
+    --subtle-pressed:     rgba(255, 255, 255, 0.0419);
+
+    /* Strokes */
+    --stroke:             rgba(255, 255, 255, 0.0698);
+    --stroke-strong:      rgba(255, 255, 255, 0.093);
+    --stroke-card:        rgba(255, 255, 255, 0.0578);
+    --stroke-divider:     rgba(255, 255, 255, 0.0837);
+    --stroke-flyout:      rgba(0, 0, 0, 0.2);
+
+    /* Text */
+    --text:               #ffffff;
+    --text-secondary:     rgba(255, 255, 255, 0.786);
+    --text-tertiary:      rgba(255, 255, 255, 0.5442);
+    --text-disabled:      rgba(255, 255, 255, 0.3628);
+
+    /* Semantic */
+    --critical:           #ff99a4;
+    --critical-fill:      #c42b1c;
+    --success:            #6ccb5f;
+
+    /* Shape, elevation, motion */
+    --radius-control:     4px;
+    --radius-card:        7px;
+    --radius-overlay:     8px;
+    --shadow-card:        0 2px 4px rgba(0, 0, 0, 0.26);
+    --shadow-flyout:      0 8px 16px rgba(0, 0, 0, 0.34);
+    --shadow-dialog:      0 32px 64px rgba(0, 0, 0, 0.44), 0 2px 21px rgba(0, 0, 0, 0.26);
+    --ease:               cubic-bezier(0, 0, 0, 1);
+    --ease-out:           cubic-bezier(0.1, 0.9, 0.2, 1);
+    --dur-fast:           0.083s;
+    --dur:                0.167s;
+    --dur-slow:           0.25s;
+
+    /* Type */
+    --font:         "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Segoe UI Variable Display", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-mono:    "Cascadia Mono", "Cascadia Code", Consolas, monospace;
+}
+
+/* -----------------------------------------------------------------------------
+   Addon tile — a Fluent card. State (installed / disabled / invalid) is carried
+   by a 1px stroke and the caption tint, not by a heavy 3px frame.
+   -------------------------------------------------------------------------- */
+
+workshopicon {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    margin: 8px;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface-card);
+    background-position: center;
+    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-overlay);
+    border: 1px solid var(--stroke-card);
+    transition: border-color var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
+}
+
+workshopicon:hover {
+    border-color: var(--stroke-strong);
+    box-shadow: var(--shadow-flyout);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+
+workshopicon preview {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+workshopicon disabled {
+    opacity: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+workshopicon.disabled disabled {
+    opacity: 0.5;
+}
+
+workshopicon controls {
+    z-index: 10;
+    bottom: -32px;
+    transition: bottom var(--dur) var(--ease-out) 0ms;
+}
+
+workshopicon:hover controls {
+    opacity: 1;
+    bottom: 0px;
+    transition: bottom var(--dur) var(--ease-out) 150ms;
+}
+
+/* Caption strip — acrylic over the thumbnail, exactly like a Fluent card header. */
+workshopicon name {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    text-align: left;
+    background-color: var(--acrylic-strong);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    border-bottom: 1px solid var(--stroke-card);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    z-index: 10;
+    font-family: var(--font);
+    color: var(--text);
+    height: 24px;
+}
+
+workshopicon name label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 2px;
+    padding: 4px 0px 4px 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+workshopicon name.subscription label {
+    right: 24px;
+}
+
+workshopicon.floating name label {
+    right: 2px;
+}
+
+workshopicon author,
+workshopicon votes,
+workshopicon size {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    text-align: right;
+    font-size: 11px;
+    font-weight: 600;
+    z-index: 10;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--font);
+    color: var(--text-secondary);
+    background-color: var(--acrylic-strong);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    border-radius: var(--radius-control) 0 0 0;
+    padding: 4px 8px;
+    border: none;
+}
+
+workshopicon size {
+    top: 24px;
+    bottom: auto;
+    border-radius: 0 0 0 var(--radius-control);
+}
+
+workshopicon author,
+workshopicon size {
+    right: 0px;
+    transition: right var(--dur) var(--ease-out) 150ms;
+}
+
+workshopicon:hover author,
+workshopicon:hover size {
+    right: -200px;
+    transition: right var(--dur) var(--ease) 0ms;
+}
+
+workshopicon votes {
+    left: 0px;
+    color: var(--accent-text);
+    transition: left var(--dur) var(--ease-out) 150ms;
+}
+
+workshopicon votes.negative {
+    color: var(--critical);
+}
+
+workshopicon:hover votes {
+    left: -200px;
+    transition: left var(--dur) var(--ease) 0ms;
+}
+
+workshopicon votes {
+    bottom: 0px;
+    right: inherit;
+    border-radius: 0 var(--radius-control) 0 0;
+}
+
+workshopicon description {
+    position: absolute;
+    left: 0;
+    top: 0px;
+    bottom: 0px;
+    right: 0;
+    text-align: left;
+    background-color: rgba(28, 28, 28, 0.92);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    font-size: 12px;
+    line-height: 1.45;
+    padding: 34px 10px;
+    color: var(--text-secondary);
+    cursor: default;
+    word-break: break-word;
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease) 0ms;
+}
+
+workshopicon .checkbox {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    margin: 0;
+    z-index: 32;
+    height: 19px;
+    width: 19px;
+}
+
+workshopicon:hover description {
+    display: inherit;
+    opacity: 1;
+    transition: opacity var(--dur-fast) var(--ease) 0ms;
+}
+
+/* State — carried by the stroke and the caption tint. */
+workshopicon.installed {
+    border-color: var(--accent);
+}
+
+workshopicon.installed name,
+workshopicon.installed author,
+workshopicon.installed votes,
+workshopicon.installed size {
+    background: var(--accent);
+    color: var(--accent-on);
+    border-color: transparent;
+}
+
+workshopicon.disabled {
+    border-color: var(--stroke);
+    opacity: 0.75;
+}
+
+workshopicon.disabled name,
+workshopicon.disabled author,
+workshopicon.disabled votes,
+workshopicon.disabled size {
+    background: var(--acrylic-strong);
+    color: var(--text-disabled);
+    border-color: transparent;
+}
+
+workshopicon.invalid {
+    border-color: var(--critical-fill);
+}
+
+workshopicon.invalid name,
+workshopicon.invalid author,
+workshopicon.invalid votes,
+workshopicon.invalid size {
+    background: var(--critical-fill);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+workshopicon.invalid.disabled {
+    border-color: #7a2318;
+}
+
+workshopicon.invalid.disabled name,
+workshopicon.invalid.disabled author,
+workshopicon.invalid.disabled votes,
+workshopicon.invalid.disabled size {
+    background: #7a2318;
+    color: var(--critical);
+    border-color: transparent;
+}
+
+workshopmessage {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-align: center;
+    display: block;
+    margin: 64px;
+}
+
+@media screen and (max-height: 800px) {
+    workshopmessage {
+        margin: 16px;
+    }
+}
+
+workshopcontainer {
+    position: absolute;
+    left: 0px;
+    top: 64px;
+    bottom: 0px;
+    right: 0px;
+    background-color: var(--surface-base);
+    border-radius: var(--radius-overlay);
+    padding: 8px;
+    border: 1px solid var(--stroke-card);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* -----------------------------------------------------------------------------
+   Tile command bar
+   -------------------------------------------------------------------------- */
+
+controls {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 3px;
+    margin: 6px 5px;
+    overflow: display;
+}
+
+controls control {
+    font-family: var(--font);
+    font-size: 11px;
+    display: inline-block;
+    background-color: var(--acrylic);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    color: var(--text);
+    padding: 3px 6px;
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    height: 17px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    transition: background-color var(--dur) var(--ease);
+}
+
+controls control IMG {
+    padding-top: 3px;
+}
+
+controls control:hover {
+    background-color: var(--surface-card-hover);
+    border-color: var(--stroke-strong);
+}
+
+controls control:active {
+    background-color: var(--surface-layer);
+}
+
+controls control.disabled {
+    background-color: var(--control-disabled);
+    color: var(--text-disabled);
+    border-color: transparent;
+    cursor: default;
+}
+
+/* -----------------------------------------------------------------------------
+   UGC settings flyout
+   -------------------------------------------------------------------------- */
+
+.ugc_settings_button {
+    height: 44px;
+    width: 44px;
+    padding: 6px;
+    background: var(--accent);
+    border-radius: var(--radius-control);
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    cursor: default;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+    box-shadow: var(--shadow-card);
+    z-index: 20;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.ugc_settings_button:hover {
+    background: var(--accent-hover);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.ugc_settings_button:active {
+    background: var(--accent-pressed);
+}
+
+.ugc_settings {
+    width: 100%;
+    padding: 12px;
+    background: var(--acrylic);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    z-index: 128;
+    position: absolute;
+    bottom: 52px;
+    left: 0;
+    box-sizing: border-box;
+    visibility: hidden;
+    overflow: hidden;
+    border: 1px solid var(--stroke-flyout);
+    border-radius: var(--radius-overlay);
+    box-shadow: var(--shadow-flyout), inset 0 0 0 1px var(--stroke-card);
+}
+
+.ugc_settings.active {
+    visibility: visible;
+}
+
+.ugc_settings span {
+    display: block;
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: var(--text-tertiary);
+}
+
+.ugc_settings label {
+    position: relative;
+    top: -2px;
+    color: var(--text-secondary);
+}
+
+.ugc_settings a {
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+    padding: 7px 15px;
+    background: var(--control);
+    display: block;
+    margin-top: 3px;
+    text-align: center;
+    border-radius: var(--radius-control);
+    cursor: default;
+    min-width: 140px;
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    transition: background-color var(--dur) var(--ease);
+}
+
+.ugc_settings a:hover {
+    background: var(--control-hover);
+    border-color: var(--stroke-strong);
+}
+
+.ugc_settings a:active {
+    background: var(--control-pressed);
+    color: var(--text-tertiary);
+}
+
+.ugc_settings_cat {
+    vertical-align: top;
+    display: inline-block;
+    padding: 0px 1%;
+    margin: 0 auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Preset editor
+   -------------------------------------------------------------------------- */
+
+.create_preset {
+    min-width: 350px;
+}
+
+.preset_content {
+    min-width: 500px;
+    margin-bottom: 5px;
+}
+
+.preset_content input[type=text] {
+    padding: 6px 10px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    font-family: var(--font);
+    background-color: var(--control);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    border-radius: var(--radius-control);
+}
+
+.preset_content input[type=text]:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 5px;
+    box-shadow: none;
+}
+
+.preset_list {
+    background: var(--surface-alt);
+    width: 150px;
+    display: inline-block;
+    max-height: 400px;
+    min-height: 290px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-card);
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+/* List rows follow the same indicator language as every other list in the theme. */
+.preset_list font {
+    display: block;
+    padding: 7px 10px;
+    cursor: default;
+    color: var(--text-secondary);
+    border-radius: var(--radius-control);
+    position: relative;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.preset_list font:hover {
+    background: var(--subtle-hover);
+    color: var(--text);
+    border-left: none;
+    padding-left: 10px;
+}
+
+.preset_list font.active {
+    background: var(--subtle-hover);
+    color: var(--text);
+    font-weight: 600;
+    border-left: none;
+    padding-left: 10px;
+}
+
+.preset_list font.active::before {
+    content: '';
+    position: absolute;
+    left: 1px;
+    top: 50%;
+    width: 3px;
+    height: 16px;
+    border-radius: 9999px;
+    background: var(--accent);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.preset_data {
+    width: 345px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: default;
+    color: var(--text-secondary);
+    background-color: var(--surface-alt);
+    border: 1px solid var(--stroke-card);
+    border-radius: var(--radius-card);
+    padding: 10px;
+    box-sizing: border-box;
+    margin-left: 5px;
+}
+
+/* -----------------------------------------------------------------------------
+   Pagination
+   -------------------------------------------------------------------------- */
+
+pagination {
+    background-color: var(--acrylic);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    border-radius: var(--radius-overlay);
+    margin: 0 auto;
+    padding: 6px;
+    max-width: 500px;
+    z-index: 64;
+    border: 1px solid var(--stroke-card);
+    box-shadow: var(--shadow-card);
+}
+
+@media screen and (max-width: 840px) {
+    pagination {
+        margin: 0;
+        margin-right: 48px;
+    }
+}
+
+pagination .back,
+pagination .next {
+    display: block;
+    float: left;
+    background: transparent url('../img/arrow_left.png') no-repeat;
+    width: 44px;
+    height: 32px;
+    background-color: var(--control);
+    border-radius: var(--radius-control);
+    background-position: center center;
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease);
+}
+
+pagination .back:hover,
+pagination .next:hover {
+    background-color: var(--control-hover);
+    border-color: var(--stroke-strong);
+}
+
+pagination .back:active,
+pagination .next:active {
+    background-color: var(--control-pressed);
+}
+
+pagination .next {
+    float: right;
+    background-image: url('../img/arrow_right.png');
+}
+
+pagination .pages {
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+pagination span.pagenum {
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-tertiary);
+}
+
+pagination a.page {
+    opacity: 1;
+    color: var(--text-tertiary);
+    padding: 3px 8px;
+    border-radius: var(--radius-control);
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+pagination a.page:hover {
+    opacity: 1;
+    background-color: var(--subtle-hover);
+    color: var(--text);
+}
+
+pagination a.page.active {
+    opacity: 1;
+    color: var(--accent-on);
+    background-color: var(--accent);
+    font-weight: 600;
+    border-radius: var(--radius-control);
+    padding: 3px 8px;
+}

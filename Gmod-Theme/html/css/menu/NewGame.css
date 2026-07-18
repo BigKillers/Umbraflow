@@ -1,0 +1,604 @@
+/* =============================================================================
+   UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
+   Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
+
+   FLUENT TOKENS — identical in every stylesheet of this theme so each file
+   stays self-sufficient (some are loaded by pages that don't pull in the rest).
+   Swap the accent block below to reskin; no rule hard-codes a colour.
+   ========================================================================== */
+:root {
+    /* Accent — Umbraflow violet by default, Fluent green alternative in comments. */
+    --accent:             #b18cff;  /* green: #6ccb5f */
+    --accent-hover:       #a274ff;  /* green: #57c24a */
+    --accent-pressed:     #8b57e6;  /* green: #4caf43 */
+    --accent-text:        #d8c4ff;  /* green: #a7e59d */
+    --accent-on:          #000000;  /* green: #000000 */
+    --accent-subtle:      rgba(177, 140, 255, 0.16);
+    --accent-glow:        rgba(177, 140, 255, 0.28);
+
+    /* Surfaces */
+    --surface-base:       #202020;
+    --surface-alt:        #1c1c1c;
+    --surface-layer:      #282828;
+    --surface-card:       #2b2b2b;
+    --surface-card-hover: #323232;
+    --acrylic:            rgba(44, 44, 44, 0.86);
+    --acrylic-strong:     rgba(32, 32, 32, 0.92);
+    --smoke:              rgba(0, 0, 0, 0.36);
+
+    /* Control fills */
+    --control:            rgba(255, 255, 255, 0.0605);
+    --control-hover:      rgba(255, 255, 255, 0.0837);
+    --control-pressed:    rgba(255, 255, 255, 0.0326);
+    --control-disabled:   rgba(255, 255, 255, 0.0419);
+    --subtle-hover:       rgba(255, 255, 255, 0.0605);
+    --subtle-pressed:     rgba(255, 255, 255, 0.0419);
+
+    /* Strokes */
+    --stroke:             rgba(255, 255, 255, 0.0698);
+    --stroke-strong:      rgba(255, 255, 255, 0.093);
+    --stroke-card:        rgba(255, 255, 255, 0.0578);
+    --stroke-divider:     rgba(255, 255, 255, 0.0837);
+    --stroke-flyout:      rgba(0, 0, 0, 0.2);
+
+    /* Text */
+    --text:               #ffffff;
+    --text-secondary:     rgba(255, 255, 255, 0.786);
+    --text-tertiary:      rgba(255, 255, 255, 0.5442);
+    --text-disabled:      rgba(255, 255, 255, 0.3628);
+
+    /* Semantic */
+    --critical:           #ff99a4;
+    --critical-fill:      #c42b1c;
+    --success:            #6ccb5f;
+
+    /* Shape, elevation, motion */
+    --radius-control:     4px;
+    --radius-card:        7px;
+    --radius-overlay:     8px;
+    --shadow-card:        0 2px 4px rgba(0, 0, 0, 0.26);
+    --shadow-flyout:      0 8px 16px rgba(0, 0, 0, 0.34);
+    --shadow-dialog:      0 32px 64px rgba(0, 0, 0, 0.44), 0 2px 21px rgba(0, 0, 0, 0.26);
+    --ease:               cubic-bezier(0, 0, 0, 1);
+    --ease-out:           cubic-bezier(0.1, 0.9, 0.2, 1);
+    --dur-fast:           0.083s;
+    --dur:                0.167s;
+    --dur-slow:           0.25s;
+
+    /* Type */
+    --font:         "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Segoe UI Variable Display", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-mono:    "Cascadia Mono", "Cascadia Code", Consolas, monospace;
+}
+
+/* -----------------------------------------------------------------------------
+   Map tiles — Fluent cards. Selection is drawn with an inset ring so the tile
+   never shifts by a pixel when it is picked.
+   -------------------------------------------------------------------------- */
+
+UL.category LI.mapicon IMG.thumbnail {
+    width: 128px;
+    height: 128px;
+    border-radius: var(--radius-control);
+}
+
+UL.category LI.mapicon IMG.favtoggle {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    visibility: hidden;
+    background-image: url('../../img/favourite.png?1');
+}
+
+UL.category LI.mapicon:hover IMG.favtoggle {
+    visibility: visible;
+}
+
+UL.category LI.mapicon IMG.favtoggle_always {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-image: url('../../img/favourite.png?1');
+}
+
+UL.category LI.mapicon IMG.faviconadd:hover {
+    background-image: url('../../img/favourite_add.png?1');
+}
+
+UL.category LI.mapicon IMG.faviconremove:hover {
+    background-image: url('../../img/favourite_remove.png?1');
+}
+
+UL.category LI.mapicon {
+    position: relative;
+    width: 128px;
+    text-align: center;
+    font-size: 12px;
+    padding: 6px;
+    margin: 3px;
+    cursor: pointer;
+    vertical-align: top;
+    background-color: var(--surface-card);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--stroke-card);
+    box-shadow: var(--shadow-card);
+    transition: background-color var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
+}
+
+UL.category LI.mapicon:hover {
+    background-color: var(--surface-card-hover);
+    border-color: var(--stroke-strong);
+    box-shadow: var(--shadow-flyout);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+
+UL.category LI.mapicon:active {
+    background-color: var(--surface-layer);
+    -webkit-transform: translateY(0) scale(0.985);
+    transform: translateY(0) scale(0.985);
+    box-shadow: var(--shadow-card);
+}
+
+UL.category LI.mapicon span {
+    word-break: break-all;
+    color: var(--text-secondary);
+}
+
+UL.category LI.mapicon.selected {
+    background-color: var(--accent-subtle);
+    border-color: transparent;
+    border-radius: var(--radius-card);
+    box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+UL.category LI.mapicon.selected span {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.maplist {
+    right: 256px;
+    top: 16px;
+    left: 16px;
+    bottom: 16px;
+    position: absolute;
+    background-color: var(--surface-base);
+    border-radius: var(--radius-overlay);
+    padding: 10px;
+    border: 1px solid var(--stroke-card);
+    box-shadow: var(--shadow-card);
+    z-index: 1001;
+}
+
+.maplist .controls {
+    width: 190px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+}
+
+/* -----------------------------------------------------------------------------
+   Settings pane
+   -------------------------------------------------------------------------- */
+
+gamesettings {
+    right: 16px;
+    top: 16px;
+    width: 226px;
+    bottom: 16px;
+    position: absolute;
+    background-color: var(--surface-card);
+    border-radius: var(--radius-overlay);
+    border: 1px solid var(--stroke-card);
+    box-shadow: var(--shadow-card);
+    color: var(--text-secondary);
+    z-index: 1001;
+}
+
+gamesettings bottom {
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+/* The one accent button on the page: Fluent reserves the accent fill for the
+   single primary action in a view. */
+gamesettings bottom button {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 10px;
+    position: absolute;
+    margin: 10px;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 600;
+    width: calc(100% - 36px);
+    background-color: var(--accent);
+    color: var(--accent-on);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.28);
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+gamesettings bottom button:hover {
+    background-color: var(--accent-hover);
+    box-shadow: none;
+}
+
+gamesettings bottom button:active {
+    background-color: var(--accent-pressed);
+    color: rgba(0, 0, 0, 0.55);
+}
+
+gamesettings select {
+    width: 100%;
+    padding: 6px 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    border-radius: var(--radius-control);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    background-color: var(--control);
+    color: var(--text);
+}
+
+gamesettings .scrollable {
+    overflow-y: auto;
+    margin: 10px;
+    margin-right: 0px;
+    padding-right: 2px;
+}
+
+gamesettings .scrollable::-webkit-scrollbar {
+    width: 12px;
+}
+
+gamesettings .scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+gamesettings .scrollable::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 9999px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+}
+
+gamesettings .scrollable::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.36);
+    background-clip: padding-box;
+}
+
+gamesettings .control {
+    margin-top: 8px;
+}
+
+gamesettings .control:first-child {
+    margin-top: 6px;
+}
+
+gamesettings .control-sub {
+    margin-top: 4px;
+    margin-left: 18px;
+}
+
+gamesettings .control LABEL {
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+gamesettings .control:not(.control-numeric):not(.control-text) LABEL {
+    position: relative;
+    top: -2px;
+}
+
+gamesettings .control-text LABEL {
+    margin-bottom: 4px;
+    display: block;
+}
+
+gamesettings .control-numeric LABEL {
+    line-height: 24px;
+}
+
+gamesettings .control input[type=text] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    font-family: var(--font);
+    font-size: 13px;
+    background-color: var(--control);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    border-radius: var(--radius-control);
+    transition: background-color var(--dur) var(--ease);
+}
+
+gamesettings .control input[type=text]:hover {
+    background-color: var(--control-hover);
+}
+
+gamesettings .control input[type=text]:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 5px;
+    box-shadow: none;
+}
+
+gamesettings .control-numeric {
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+gamesettings .control-numeric input[type=text] {
+    width: 52px;
+    padding: 3px 6px;
+    float: right;
+    height: 24px;
+    box-sizing: border-box;
+    background-color: var(--control);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    border-radius: var(--radius-control);
+}
+
+/* -----------------------------------------------------------------------------
+   ComboBox
+   -------------------------------------------------------------------------- */
+
+.dropdown {
+    position: relative;
+    z-index: 100;
+}
+
+.dropdown .label {
+    border-radius: var(--radius-control);
+    height: 32px;
+    padding-left: 12px;
+    line-height: 32px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 400;
+    background: var(--control);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    color: var(--text);
+    vertical-align: middle;
+    box-shadow: none;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.dropdown .label:hover {
+    background: var(--control-hover);
+    box-shadow: none;
+}
+
+.dropdown .label:active {
+    background: var(--control-pressed);
+    color: var(--text-tertiary);
+}
+
+.dropdown .contents {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 35px;
+    background-color: var(--acrylic);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    backdrop-filter: blur(30px) saturate(125%);
+    border-radius: var(--radius-overlay);
+    border: 1px solid var(--stroke-flyout);
+    display: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    box-shadow: var(--shadow-flyout), inset 0 0 0 1px var(--stroke-card);
+}
+
+.dropdown .contents div {
+    padding: 7px 12px;
+    border-radius: var(--radius-control);
+    color: var(--text-secondary);
+    position: relative;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* Fluent marks the hovered flyout row with fill plus the accent pill, never by
+   nudging the text sideways. */
+.dropdown .contents div:hover {
+    background-color: var(--subtle-hover);
+    color: var(--text);
+    border-left: none;
+    padding-left: 12px;
+}
+
+.dropdown .contents div:hover::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    width: 3px;
+    height: 16px;
+    border-radius: 9999px;
+    background: var(--accent);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.caret {
+    width: 0;
+    height: 0;
+    vertical-align: top;
+    border-top: 5px solid var(--text-secondary);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: "";
+    float: right;
+    margin-top: 13px;
+    margin-right: 12px;
+}
+
+/* -----------------------------------------------------------------------------
+   Category list — another NavigationView, same indicator language as the
+   main menu's left pane.
+   -------------------------------------------------------------------------- */
+
+.controls .search {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    padding: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.controls .search input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 10px;
+    font-family: var(--font);
+    background-color: var(--control);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-bottom-color: var(--stroke-strong);
+    border-radius: var(--radius-control);
+    font-size: 13px;
+    transition: background-color var(--dur) var(--ease);
+}
+
+.controls .search input:hover {
+    background-color: var(--control-hover);
+}
+
+.controls .search input:focus {
+    outline: none;
+    background-color: var(--surface-alt);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px;
+    box-shadow: none;
+}
+
+.controls UL {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 32px;
+}
+
+.controls UL::-webkit-scrollbar {
+    width: 10px;
+}
+
+.controls UL::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.controls UL::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+.controls UL::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.36);
+    background-clip: padding-box;
+}
+
+.controls LI.category {
+    background-color: transparent;
+    margin: 0;
+    margin-bottom: 2px;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 400;
+    border-radius: var(--radius-control);
+    color: var(--text-secondary);
+    height: 32px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid transparent;
+    transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.controls LI.category:hover {
+    background-color: var(--subtle-hover);
+    border-color: transparent;
+    color: var(--text);
+}
+
+.controls LI.category:active {
+    background-color: var(--subtle-pressed);
+    color: var(--text-tertiary);
+}
+
+.controls LI.active {
+    background-color: var(--subtle-hover);
+    color: var(--text);
+    font-weight: 600;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.controls LI.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 16px;
+    border-radius: 9999px;
+    background: var(--accent);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.controls LI.category .name {
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 0;
+    right: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Fluent InfoBadge: pill, secondary text, no border. */
+.controls LI.category .count {
+    float: right;
+    background-color: var(--control);
+    border-radius: 9999px;
+    padding: 2px 7px;
+    margin: 8px 8px 0 0;
+    color: var(--text-tertiary);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: none;
+}
+
+.controls LI.active .count {
+    background-color: var(--accent);
+    color: var(--accent-on);
+}
