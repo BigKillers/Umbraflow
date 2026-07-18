@@ -1,17 +1,8 @@
 ///////////////////////////////////////////////////////////
 // UMBRAFLOW — Fluent-inspired Garry's Mod menu theme.
 // Created by Big_Killers · v1.0.0 · © Big_Killers. All rights reserved.
-//
-// Fluent — VGUI scheme (console, dialogs, spawnmenu, options)
-//
-// VGUI cannot blur, round corners or animate, so Fluent is carried here by the
-// three things it *does* support exactly: the Windows 11 dark neutral ramp,
-// the real system fonts (Segoe UI for chrome, Cascadia Mono for the console),
-// and per-side borders — which is how the Fluent "control elevation" edge
-// (a brighter stroke along the bottom of every control) is reproduced.
-//
-// To reskin: change only the ACCENT block in Colors. Everything below refers
-// to it by name.
+// VGUI scheme (console, dialogs, spawnmenu, options)
+// To reskin: change only the ACCENT block in Colors.
 ///////////////////////////////////////////////////////////
 Scheme
 {
@@ -278,15 +269,8 @@ Scheme
 	}
 
 	//////////////////////// FONTS /////////////////////////////
-	//
-	// Chrome fonts are Segoe UI; fixed-width fonts are Cascadia Mono falling
-	// back to Consolas. "Segoe UI" (static) is used rather than "Segoe UI
-	// Variable" because VGUI resolves fonts through GDI and cannot address a
-	// variable font's weight axis — the static family is visually identical at
-	// UI sizes and is guaranteed present on every Windows install.
-	//
-	// Gameplay HUD fonts (HUDNumber*, Trebuchet*, TitleFont) are deliberately
-	// left alone: restyling those changes the game, not the chrome.
+	// Chrome: Segoe UI (static). Fixed-width: Cascadia Mono / Consolas.
+	// Gameplay HUD fonts left unchanged.
 	Fonts
 	{
 		// ---- Fixed width / console -------------------------------------
@@ -1006,12 +990,7 @@ Scheme
 
 	}
 
-	//
 	//////////////////// BORDERS //////////////////////////////
-	//
-	// VGUI cannot round a corner, so the Fluent edge language is carried
-	// entirely by stroke colour and which side it lands on.
-	//
 	Borders
 	{
 		BaseBorder		SubtleBorder

@@ -1,10 +1,6 @@
 /* =============================================================================
    UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
    Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
-
-   FLUENT TOKENS — identical in every stylesheet of this theme so each file
-   stays self-sufficient (this one is loaded by a page that does not pull in
-   the rest). Swap the accent block below to reskin.
    ========================================================================== */
 :root {
     /* Accent — Umbraflow violet by default, Fluent green alternative in comments. */

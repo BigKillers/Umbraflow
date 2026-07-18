@@ -6,42 +6,12 @@
  * @version 1.0.0
  */
 
-/* ============================================================
-   ALL-IN-ONE VARIANT
+/* ALL-IN-ONE VARIANT */
 
-   One file, three palettes, picked automatically from the appearance class
-   Discord puts on <html>:
-     .theme-light                    → Light palette
-     .theme-dark (no midnight)       → Fluent dark palette   ← the :root baseline
-     .theme-dark.theme-midnight      → Onyx / near-black palette
-
-   HOW IT WORKS. Every value that differs between the three themes is a
-   --fluenty-* variable. :root below holds the DARK (Fluent) values as the
-   baseline, so an un-recognised appearance still gets a sane dark look. The
-   §1b override blocks — .theme-light and .theme-midnight — sit at the END of
-   the file and restate ONLY the vars that differ. They match at the same
-   specificity as :root but come later in source order, so for Light and Onyx
-   they win; for plain Dark neither matches and the baseline stands. Every
-   structural rule (§2–§13) reads the variables and is shared by all three.
-
-   Onyx carries BOTH theme-dark and theme-midnight (confirmed from the live
-   client: class="… theme-dark theme-midnight …"), which is why the dark
-   baseline is keyed on :root, not .theme-dark — keying it on .theme-dark would
-   also paint Onyx and force the midnight block to re-override everything.
-
-   TUNING: per-theme values live in ONE place — the §1b blocks at the bottom
-   (plus this :root baseline for dark). Structural fixes go in §2–§13 once and
-   apply to all three.
-   ============================================================ */
-
-/* ============================================================
-   1. FLUENT DESIGN TOKENS  (dark / Fluent baseline)
-   Palette and stroke values lifted from WinUI 2/3 dark theme.
-   ============================================================ */
+/* 1. FLUENT DESIGN TOKENS  (dark / Fluent baseline) */
 
 :root {
-  /* Accent. accent-light is per-theme (light mode overrides it to the full
-     accent, since sky-blue is illegible on white); the rest are shared. */
+
   --fluenty-accent: #005fb8;
   --fluenty-accent-light: #60cdff;
   --fluenty-accent-hover: #1a6cbf;
@@ -59,9 +29,7 @@
   /* Layers: mica backdrop (darker) under a content layer (lighter) */
   --fluenty-mica: rgb(var(--fluenty-1b));
   --fluenty-layer: rgb(var(--fluenty-20));
-  /* 0.86, not 0.96. At 96% opaque the backdrop-filter behind it contributed
-     about 4% of the visible pixels — full GPU cost for an invisible effect.
-     At 0.86 the blur is actually what you see. */
+
   --fluenty-acrylic: rgba(44, 44, 44, 0.86);
 
   /* WinUI subtle fills — hover/pressed states are translucent white, not solid */
@@ -81,11 +49,6 @@
   --fluenty-text-tertiary: rgba(255, 255, 255, 0.5442);
   --fluenty-text-disabled: rgba(255, 255, 255, 0.3628);
 
-  /* Per-theme values that in the single-file themes were hardcoded inside
-     structural rules. Pulled into variables here so the one shared copy of
-     those rules (§2–§13) can serve all three palettes; the §1b blocks override
-     these for Light and Onyx. Dark/Fluent values below.
-     — elevation shadows (were §2)            — mod fills (were §2b) */
   --fluenty-elev-low: 0 1px 2px rgba(0, 0, 0, 0.13), 0 0 2px rgba(0, 0, 0, 0.11);
   --fluenty-elev-medium: 0 4px 8px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12);
   --fluenty-elev-high: 0 8px 16px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12);
@@ -105,8 +68,7 @@
   --fluenty-panel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   /* — faint tint on message hover / deprecated cards (§2) */
   --fluenty-hover-tint: rgba(255, 255, 255, 0.0261);
-  /* — member-row sheen (§11). Flat by default; Light overrides with a silvery
-     gradient so plain member cards don't melt into the mica. */
+
   --fluenty-member-sheen: none;
   --fluenty-member-sheen-hover: none;
 
@@ -114,27 +76,15 @@
   --fluenty-ease: cubic-bezier(0.1, 0.9, 0.2, 1);
   --fluenty-ease-out: cubic-bezier(0, 0, 0, 1);
 
-  /* Acrylic grain, generated as a self-contained SVG so the theme stays a single
-     file with no image assets to ship.
-     numOctaves is 2, not 4: feTurbulence cost scales with octaves and the extra
-     detail is invisible at 4.5% opacity. */
   --fluenty-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
 }
 
-/* ============================================================
-   2. MAP ONTO DISCORD
-   Both the legacy (--background-*) and current (--bg-*) token sets
-   are set, since which one is live depends on your client build.
-   ============================================================ */
+/* 2. MAP ONTO DISCORD */
 
 :root,
 .theme-dark,
 .theme-light {
-  /* Surfaces — legacy.
-     Only two opaque surfaces exist: the mica nav shell and the lighter
-     content layer. Everything else resolves to one of them, so no region
-     can drift into a third shade. Acrylic is reserved for floating
-     surfaces (menus, popouts), which are meant to read as separate. */
+
   --background-primary: var(--fluenty-layer);
   --background-secondary: var(--fluenty-mica);
   --background-secondary-alt: var(--fluenty-mica);
@@ -185,8 +135,6 @@
   --brand-500: var(--fluenty-accent);
   --button-filled-brand-background: var(--fluenty-accent);
 
-  /* Elevation — WinUI shadows are soft and low-contrast. Per-theme (light
-     softens them, Onyx deepens them), so they resolve through §1's vars. */
   --elevation-low: var(--fluenty-elev-low);
   --elevation-medium: var(--fluenty-elev-medium);
   --elevation-high: var(--fluenty-elev-high);
@@ -195,22 +143,7 @@
   --shadow-high: var(--elevation-high);
 }
 
-/* ============================================================
-   2b. DISCORD'S REAL COLOUR TOKENS
-   Discord's current build resolves nearly every surface from these. Their names
-   were found in the inline style Discord writes on a profile popout:
-
-       --profile-gradient-primary-color: var(--background-surface-high);
-       --profile-gradient-modal-background-color: var(--background-base-lower);
-
-   They are NOT --bg-base-* and NOT the legacy --background-primary set, which
-   is why remapping those did nothing and every screen had to be chased by class.
-   Overriding these fixes settings, quests, library and the emoji/sticker/GIF
-   picker at the source — and any screen not yet opened.
-
-   !important is legal on a custom property and makes these win regardless of
-   where Discord declares them.
-   ============================================================ */
+/* 2b. DISCORD'S REAL COLOUR TOKENS */
 
 :root,
 .theme-dark,
@@ -219,10 +152,6 @@
   --background-base-lower: rgb(var(--fluenty-1b)) !important;
   --background-base-low: rgb(var(--fluenty-20)) !important;
 
-  /* These MUST stay opaque. Floating panels — the emoji/sticker/GIF picker
-     above all — use them as their own background. Translucent values here made
-     the picker fully see-through. The translucent card look comes from the
-     explicit rules in §11, not from these tokens. */
   --background-surface-high: rgb(var(--fluenty-2b)) !important;
   --background-surface-higher: rgb(var(--fluenty-30)) !important;
   --background-surface-highest: rgb(var(--fluenty-37)) !important;
@@ -235,11 +164,7 @@
   --background-brand: var(--fluenty-accent) !important;
 }
 
-/* ============================================================
-   3. TYPOGRAPHY
-   Segoe UI Variable ships with Windows 11, so it is referenced by
-   family name rather than bundled — no font file to redistribute.
-   ============================================================ */
+/* 3. TYPOGRAPHY */
 
 :root {
   --font-primary: "Segoe UI Variable Text", "Segoe UI Variable Static Text", "Segoe UI", system-ui, sans-serif;
@@ -252,10 +177,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ============================================================
-   4. GEOMETRY
-   WinUI: 4px on controls, 8px on overlays and cards.
-   ============================================================ */
+/* 4. GEOMETRY */
 
 :root {
   --radius-xxs: 2px;
@@ -266,51 +188,20 @@ body {
   --radius-xl: 8px;
 }
 
-/* ============================================================
-   5. ACRYLIC SURFACES
-   backdrop-filter only blurs what is inside the Discord window.
-   True desktop-wallpaper acrylic would need Vencord's window transparency plus
-   a DWM tweak, so what happens here is an in-app approximation: a translucent
-   fill over a grain texture, blurring Discord's own layers.
+/* 5. ACRYLIC SURFACES */
 
-   Attribute selectors are case-SENSITIVE: the context menu is
-   .contextMenu_hash, so "menu_" does not match it.
-   ============================================================ */
-
-/* Menus: OPAQUE, and no backdrop-filter. They used to be acrylic with a 30px
-   blur, which worked on a top-level menu and broke on every submenu.
-
-   A submenu (Mute Channel ▸, Notifications ▸, Add Reaction ▸) is an
-   absolutely-positioned CHILD of the menu that opened it, and it extends well
-   outside that menu's box. An element with backdrop-filter becomes a BACKDROP
-   ROOT for its descendants: the child's backdrop is only what is painted inside
-   the parent's box, not the page behind it. Over the region where the submenu
-   hangs outside its parent — nearly all of it — there is nothing in that
-   backdrop root to blur, so the blur silently did nothing and the 86% acrylic
-   was left as a plain translucent sheet with the chat showing through.
-
-   Nested backdrop filters cannot compose their way out of this, so the fill is
-   solid instead. Cheaper too: menus no longer composite a blur layer at all.
-
-   NO overflow:hidden, for the same reason submenus broke the blur — they extend
-   outside the parent's box, and clipping the menu clips them out of existence. */
 [class*="contextMenu_"],
 [class*="menu_"],
 [class*="autocomplete_"] {
-  /* Noise is layered as a background image over the colour, so no pseudo-element
-     is needed and menu item stacking stays untouched. */
+
   background: var(--fluenty-noise) repeat, rgb(var(--fluenty-2b)) !important;
   border: 1px solid var(--fluenty-stroke-card) !important;
   border-radius: 8px !important;
   box-shadow: var(--elevation-high) !important;
 }
 
-/* PERF: tooltips get NO blur. Discord shows one on almost every hover — every
-   channel, button, member and icon — so each hover was compositing a backdrop
-   blur. They are small and near-opaque, so the blur was invisible anyway. */
 [class*="tooltip_"] {
-  /* rgba(var(--fluenty-2b),…) so it tracks the card/menu surface of whichever
-     palette is active — 44,44,44 dark / 255,255,255 light / 28,28,28 onyx. */
+
   background: var(--fluenty-noise) repeat, rgba(var(--fluenty-2b), 0.98) !important;
   border: 1px solid var(--fluenty-stroke-card) !important;
   border-radius: 8px !important;
@@ -329,11 +220,6 @@ body {
   background: transparent !important;
 }
 
-/* Modals get the solid "layer" treatment, not acrylic — WinUI dialogs
-   are opaque so the content behind them can't compete for attention.
-   Only the dialog root is painted; the content region inherits it, so a
-   full-screen surface that reuses modalContent (User Settings) does not
-   get a lighter slab floated over the page. */
 [class*="modal_"] {
   background: rgb(var(--fluenty-2b)) !important;
   border: 1px solid var(--fluenty-stroke-card) !important;
@@ -345,10 +231,7 @@ body {
   background: transparent !important;
 }
 
-/* ============================================================
-   6. SCROLLBARS
-   Fluent scrollbars are 2px rails that expand on hover.
-   ============================================================ */
+/* 6. SCROLLBARS */
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -361,12 +244,6 @@ body {
   margin: 0 !important;
 }
 
-/* Vertical border only. A uniform border also insets the thumb from the top and
-   bottom of the track, so it can never reach the end — that is the gap left
-   below the thumb when scrolled fully down. */
-/* PERF: no transition. Scrollbar parts are painted by the compositor as part of
-   the scrolling layer, so a transition on the thumb repaints that layer while
-   you scroll — the one moment it must not. */
 ::-webkit-scrollbar-thumb {
   background-clip: padding-box !important;
   background-color: var(--fluenty-scrollbar) !important;
@@ -385,11 +262,7 @@ body {
   background: transparent !important;
 }
 
-/* ============================================================
-   7. CONTROLS
-   The signature WinUI button: subtle translucent fill, a 1px stroke
-   whose bottom edge is darker, giving a faint sense of elevation.
-   ============================================================ */
+/* 7. CONTROLS */
 
 button[class*="button_"]:not([class*="lookBlank"]):not([class*="lookLink"]) {
   border-radius: 4px !important;
@@ -414,19 +287,6 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   border-bottom-color: transparent !important;
 }
 
-/* The secondary-button rules that sat here (lookFilled_+colorPrimary_, and
-   lookOutlined_) are DELETED — verified never to match on this build. Discord
-   has moved these to primary_/secondary_ classes; colorBrand_ is still live,
-   which is why the brand rules above survive. Secondary buttons now fall
-   through to the generic button rule at the top of this section. */
-
-/* Voice panel action row. Fluent reserves the accent for the single primary
-   action, so a row of four accent buttons is wrong — these become neutral
-   translucent fills, like a Win11 command bar.
-
-   No strokes on anything in this panel: the generic button rule in this section
-   outlines every button, and inside the panel's own card that reads as a row of
-   empty squares. */
 [class*="panels_"] button {
   border: none !important;
   box-shadow: none !important;
@@ -446,26 +306,8 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   background-color: var(--fluenty-fill-pressed) !important;
 }
 
-/* The themeableSwitch / switch_ rule that lived here is DELETED — neither class
-   exists any more, confirmed with User Settings open. Discord's toggles are
-   already pill-shaped, so the rule was only ever restating the default. */
+/* 8. INPUTS */
 
-/* ============================================================
-   8. INPUTS
-   Fluent's most recognisable control: a 2px accent underline that
-   appears on focus, replacing the resting bottom stroke.
-   ============================================================ */
-
-/* WinUI's resting text-field underline is 54% white. That is faithful, but on
-   a search box sitting in the header card it reads as a stray bright line, so
-   it is toned down here and only the focus underline stays vivid. */
-/* Only control WRAPPERS carry the chrome. [class*="input_"] was far too broad:
-   in the emoji/sticker/GIF picker it matched both the search container and the
-   input inside it, so each drew its own bordered box — the icon in one, the
-   text in another. */
-/* inputWrapper_ and inputDefault_ were in these lists and are gone — verified
-   dead with User Settings open, where they would have had to match if they
-   existed. searchBar_ and channelTextArea_ are the live control wrappers. */
 [class*="channelTextArea_"],
 [class*="searchBar_"] {
   background: var(--fluenty-fill-control) !important;
@@ -481,9 +323,6 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   border-bottom: 2px solid var(--fluenty-accent-light) !important;
 }
 
-/* The field inside a control wrapper never carries chrome of its own — the
-   wrapper is the control. Without this, a bordered box renders inside a
-   bordered box. */
 [class*="searchBar_"] [class*="input_"],
 [class*="searchBar_"] input,
 [class*="contentWrapper_"] [class*="input_"] {
@@ -493,11 +332,7 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   box-shadow: none !important;
 }
 
-/* ============================================================
-   9. NAVIGATION
-   WinUI NavigationView: selected item is a rounded subtle fill with
-   a short accent pill on the leading edge.
-   ============================================================ */
+/* 9. NAVIGATION */
 
 [class*="containerDefault_"] [class*="link_"],
 [class*="channel_"] [class*="link_"] {
@@ -522,41 +357,22 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   background: var(--fluenty-fill-selected) !important;
 }
 
-/* Guild bar — the bar itself is transparent so the §11 gradient reads through.
-   Discord masks guild icons into a squircle via an SVG mask; dropping the
-   mask is what lets a plain border-radius take effect. */
 [class*="guilds_"] foreignObject {
   mask: none !important;
   clip-path: none !important;
 }
 
-/* PERF: no transition on border-radius. It is not a compositable property, so
-   animating it forces a full repaint of the icon on every frame — on every
-   guild hover, which is constant. The radius is static now. */
 [class*="guilds_"] [class*="blobContainer"] [class*="wrapper_"],
 [class*="guilds_"] [class*="listItem_"] [class*="wrapper_"] {
   border-radius: 8px !important;
   overflow: hidden;
 }
 
-/* Selected/unread pill picks up the accent.
-
-   NOT pillItem_ / pillItemSelected_ — those classes do not exist and this rule
-   had never once matched, so the pill has been Discord's default white all
-   along. A DOM dump of the guild list shows the pill is an "item_" element
-   inside the "overlay_" wrapper that each guild row carries:
-
-       <div class="wrapper__58105 overlay__58105"><span class="item__58105">
-
-   Scoped under guilds_ AND overlay_, because "item_" on its own is one of the
-   most common class stems in the app. */
 [class*="guilds_"] [class*="overlay_"] [class*="item_"] {
   background-color: var(--fluenty-accent-light) !important;
 }
 
-/* ============================================================
-   9b. MEMBER LIST
-   ============================================================ */
+/* 9b. MEMBER LIST */
 
 [class*="membersGroupHeader"],
 [class*="membersGroupName"] {
@@ -564,34 +380,16 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   font-weight: 600;
 }
 
-/* ============================================================
-   10. CHROME
-   ============================================================ */
+/* 10. CHROME */
 
-/* Only surfaces the card layout in §11 does NOT claim belong here — anything
-   §11 also sets would never win.
-
-   background-COLOR, never the `background` shorthand: the shorthand also resets
-   background-image, which is how Discord paints profile nameplates.
-
-   The [class*="typeWindows"] rule that used to open this section is DELETED.
-   Walking the DOM from the guild bar up to appMount turns up no such class —
-   Discord dropped the platform class — so it painted nothing. The window
-   surface is already covered by the #app-mount / [class*="app_"] rules in §11. */
 [class*="scrollerContent_"] {
   background-color: var(--fluenty-layer) !important;
 }
 
-/* Channel header is a card in §11; it must not also carry a hairline divider
-   here, or the border shows as a stray line beside the toolbar icons. */
 [class*="upperContainer_"] {
   box-shadow: none !important;
 }
 
-/* Settings: sidebar is mica (matched above), the options column is the
-   content layer. Its inner cards must not float a lighter panel on top —
-   that lighter slab is what looked wrong. Scoped under the settings layer
-   so it cannot leak into menus or popouts. */
 [class*="layer_"] [class*="contentContainer_"],
 [class*="layer_"] [class*="contentWrapper_"] {
   background: var(--fluenty-layer) !important;
@@ -606,72 +404,35 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   border-color: var(--fluenty-stroke-divider) !important;
 }
 
-/* ============================================================
-   10b. SURFACES DISCORD REPAINTS
-   Discord's current build resolves these from oklab colour tokens that are
-   not exposed to getComputedStyle, so they cannot be remapped by variable —
-   they have to be overridden by class. Each one below was measured painting
-   an opaque Discord default on top of a Fluenty surface.
-   ============================================================ */
+/* 10b. SURFACES DISCORD REPAINTS */
 
-/* Children that repaint over the mica nav surfaces. Letting them inherit is
-   what makes the sidebar and member list read as one surface.
-   The user panel is excluded: its container carries the profile nameplate,
-   and clearing its background would erase it. */
-/* PERF on the :has() below — anchored to chat_, not left as a bare
-   [class*="container_"]:has(...).
-
-   The subject of a :has() is what Chromium flags as "affected by :has", and it
-   re-evaluates that flag every time a child mutates. "container_" is one of
-   Discord's most reused class stems — it is on embeds, attachments, rows,
-   accessories, popouts — so an unanchored subject flagged most of the app and
-   made every hover-driven class change under any of them re-run this check.
-   Anchoring to chat_ cuts the flagged set to the one column the member list
-   actually lives in. */
 [class*="members_"],
 [class*="sidebar_"] [class*="container_"]:not([class*="panels_"] *),
 [class*="chat_"] [class*="container_"]:has(> [class*="membersWrap"]) {
   background-color: transparent !important;
 }
 
-/* Settings header. This was once [class*="content_"]:has([class*="contentHeader_"]),
-   whose subject matched every element with "content_" in its class — including
-   content__908e2, on every message — forcing Chromium to re-evaluate the :has()
-   on each DOM mutation in the chat. The settings shell is handled by class in
-   §11c and by the real tokens in §2b, so only the header needs a rule. */
 [class*="contentHeader_"] {
   background-color: var(--fluenty-layer) !important;
 }
 
-/* Message hover toolbar. No backdrop-filter: it appears and disappears on every
-   message hover, and re-blurring on each hover is not worth an effect nobody
-   sees against a flat background. */
 [class*="buttonsInner_"] {
   background: var(--fluenty-acrylic) !important;
   border: 1px solid var(--fluenty-stroke-card) !important;
   border-radius: 4px !important;
 }
 
-/* Message box. The control fill lives on channelTextArea (§8); these inner
-   layers must stay transparent or their fills stack and the box reads far
-   lighter than a Fluent control should. */
 [class*="scrollableContainer_"],
 [class*="themedBackground_"] {
   background-color: transparent !important;
 }
 
-/* Discord fades a gradient into the top of the message box, colour-matched to
-   its own background. Against a Fluenty surface it no longer matches and
-   shows as a band. */
 [class*="chatGradient_"],
 [class*="chatGradientBase_"] {
   background: none !important;
 }
 
-/* ============================================================
-   10c. LEFTOVER BLURPLE
-   Discord hardcodes #5865f2 on these rather than reading the brand token.
-   ============================================================ */
+/* 10c. LEFTOVER BLURPLE */
 
 [class*="switchIndicator_"],
 [class*="barFill_"],
@@ -685,30 +446,11 @@ button[class*="primary_"] {
   background-color: var(--fluenty-fill-selected) !important;
 }
 
-/* Settings toggles: blue when OFF, green when ON.
-   Real DOM on this build:
-     <label class="container_">
-       <div class="switchIndicator_" style="background-color: …">  ← the track
-       <span class="hiddenVisually_"><input type="checkbox" checked></span>
-   Discord sets the track colour via inline style (blurple on / faint black off);
-   the rule above forces it to accent with !important in BOTH states, which is the
-   OFF blue we want. The checked state lives on the <input> — which is neither a
-   child nor a direct sibling of the track, but nested inside a FOLLOWING <span>.
-   So none of the plain combinators reach it; :has(~ * input:checked) does — it
-   matches a track that has a later sibling containing a checked input, i.e. ON.
-   The subject is the indicator itself, so only the switches are flagged
-   "affected by :has", not the app. Green is the #2f9e5f used for the
-   context-menu checkboxes, so ON reads consistently across the app. */
 [class*="switchIndicator_"]:has(~ * input:checked) {
   background-color: #2f9e5f !important;
 }
 
-/* ============================================================
-   11. CARD LAYOUT
-   Translucent cards floating over a gradient base, as in the Win11 Settings
-   app. Everything here is additive — delete this whole section to return to
-   the flat two-surface layout.
-   ============================================================ */
+/* 11. CARD LAYOUT */
 
 :root {
   /* --- TUNE THESE --- */
@@ -718,19 +460,10 @@ button[class*="primary_"] {
   --fluenty-pane: rgba(255, 255, 255, 0.02);
   --fluenty-gap: 8px;
 
-  /* The two user-area panels are OPAQUE, not cards. A translucent fill lets the
-     blue gradient base read straight through them, which washes out a profile
-     nameplate and leaves the voice panel looking like a hole. These are solid
-     WinUI surfaces — the card look is for things floating over the base, and
-     the user area is a fixed part of the shell. */
   --fluenty-panel: rgb(var(--fluenty-2b));
   --fluenty-panel-hover: rgb(var(--fluenty-30));
 }
 
-/* --- The base is OPAQUE: the desktop never shows through. The translucency
-   and blur happen between Discord's own layers — cards frosted over the
-   gradient beneath them — which is the look without the mess of seeing your
-   wallpaper and other windows. --- */
 html,
 body,
 #app-mount,
@@ -744,8 +477,6 @@ body,
   background-image: var(--fluenty-base-gradient) !important;
 }
 
-/* Nav panes let the tint read through. titleBar_ was in this list and is gone:
-   it matches nothing on this build, same as typeWindows in §10. */
 [class*="guilds_"],
 [class*="membersWrap"],
 [class*="panels_"],
@@ -759,21 +490,6 @@ body,
   background-color: var(--fluenty-pane) !important;
 }
 
-/* --- Column separators.
-   Discord draws a 1px rule down the boundary between the guild bar, the sidebar
-   and the chat. It spans the FULL window height, so it does not stop at the
-   channel list — it carries on down the side of the voice and account panels
-   and reads as a stray line beside them.
-
-   It is removed rather than shortened: the line is on the column container, so
-   the only way to stop it early would be to fake it with a pseudo-element of a
-   fixed height, which then has to be kept in sync with the panels' height. The
-   pane tint on the sidebar and the card fills already do the separating — that
-   is the whole premise of the card layout — so the rule is redundant here.
-
-   border-left/right, not `border`: the sidebar header card and the channel
-   header card are descendants of these containers and must keep their strokes.
-   These selectors only match the containers themselves. --- */
 [class*="guilds_"],
 [class*="sidebar_"],
 [class*="sidebarList_"],
@@ -786,11 +502,6 @@ body,
   box-shadow: none !important;
 }
 
-/* --- Channel header card ---
-   The header is the <section> that contains the toolbar. Targeting
-   [class*="title_"] was wrong: that also matches the channel-name chip and
-   the upload-drop overlay, which is why the card wrapped just the channel
-   name and left stray edges. */
 [class*="chat_"] section:has([class*="toolbar_"]) {
   background-color: var(--fluenty-card) !important;
   border: 1px solid var(--fluenty-card-stroke) !important;
@@ -800,8 +511,6 @@ body,
   box-shadow: var(--elevation-low) !important;
 }
 
-/* The chip the card was landing on before, and the upload overlay, must be
-   left flat. */
 [class*="chat_"] [class*="title_"] {
   background-color: transparent !important;
   border: none !important;
@@ -812,12 +521,6 @@ body,
   min-height: 0 !important;
 }
 
-/* --- Toolbar bubble: the icon cluster (threads, notifications, pins, members)
-   gets the same card as the server-name header. It sits inside the channel
-   header card, so the two translucent fills stack and it reads a shade lighter
-   than the card behind it — which is what separates it. align-self keeps the
-   bubble hugging the icons instead of stretching to the header's full height.
-   §11 forces toolbar_ transparent, so this must out-specify it. --- */
 [class*="chat_"] section [class*="toolbar_"] {
   background-color: var(--fluenty-card) !important;
   border: 1px solid var(--fluenty-card-stroke) !important;
@@ -832,22 +535,13 @@ body,
   background-color: var(--fluenty-card-hover) !important;
 }
 
-/* Message area card. No bottom margin: the gap below it is owned by the
-   message box, otherwise the two cards' margins collapse into each other and
-   the borders collide. */
-/* PERF: NO backdrop-filter here. This element scrolls and repaints constantly,
-   and a backdrop blur forces the compositor to re-blur the whole region every
-   frame — it was the main cause of the chat rendering late. Nothing is lost
-   visually: what sits behind it is a flat gradient, so blurring it produces the
-   same pixels as the translucent fill alone. */
 [class*="messagesWrapper_"] {
   background-color: var(--fluenty-card) !important;
   border: 1px solid var(--fluenty-card-stroke) !important;
   border-radius: 8px !important;
   margin: var(--fluenty-gap) var(--fluenty-gap) 0 var(--fluenty-gap) !important;
   box-shadow: var(--elevation-low) !important;
-  /* overflow:clip (not hidden) so the card's rounded corners do not eat the last
-     few pixels of the scrollbar track. */
+
   overflow: clip !important;
   overflow-clip-margin: content-box;
 }
@@ -857,14 +551,6 @@ body,
   background-color: transparent !important;
 }
 
-/* --- Message box card. The form owns the gap between the two cards, so they
-   can never touch.
-
-   The extra top padding is a dedicated band for the typing indicator. Discord
-   pins that indicator at top:-24px — i.e. ABOVE the form — which in this layout
-   put it straight on top of the last message, since the message card sits flush
-   against the form. Giving the form 28px of top padding and re-anchoring the
-   indicator inside it means the indicator never overlaps the messages. --- */
 [class*="form_"] {
   background-color: transparent !important;
   padding: 28px var(--fluenty-gap) var(--fluenty-gap) var(--fluenty-gap) !important;
@@ -875,9 +561,6 @@ body,
   display: none !important;
 }
 
-/* Re-anchored: inside the form's top band, not over the message card. left:8px
-   lines it up with the message box's left edge; the 20px left padding is
-   Discord's room for the animated dots. */
 [class*="typing_"] {
   top: 2px !important;
   bottom: auto !important;
@@ -885,13 +568,6 @@ body,
   padding-left: 20px !important;
 }
 
-/* PERF (typing): the composer repaints on every keystroke, so its fill is OPAQUE
-   here, not the translucent --fluenty-card used elsewhere. A see-through fill
-   forces the compositor to re-blend the box against the #app-mount gradient stack
-   beneath it on each repaint; an opaque fill occludes that stack, so the blend is
-   skipped. The colours are the opaque equivalents of the card look over the
-   rgb(32,32,32) base — 5% white ≈ rgb(44,44,44) (--fluenty-2b), 9% ≈ rgb(48,48,48)
-   (--fluenty-30) — so the box looks the same, it just paints cheaper. */
 [class*="channelTextArea_"] {
   background-color: rgb(var(--fluenty-2b)) !important;
   border: 1px solid var(--fluenty-card-stroke) !important;
@@ -906,17 +582,6 @@ body,
   border-bottom: 2px solid var(--fluenty-accent-light) !important;
 }
 
-/* --- Channel categories: the name chip and the + button each get their own
-   bubble. The category <h3> also carries a "header_" class, so the server-header
-   rule below is excluded from h3 or it would win on specificity and swallow
-   these. --- */
-/* No backdrop-filter here: the blur pulls in the dark background behind the chip
-   and flattens it, which is why it read darker than the + button beside it. A
-   top-light gradient gives both the same brushed, silvery Fluent surface. */
-/* PERF: these used to be [class*="containerDefault_"]:has(h3) …, whose subject
-   is EVERY channel row. The :has() was pointless — only categories contain an
-   h3 or an addButton_ — so a plain descendant selector matches exactly the same
-   elements without the style-invalidation cost. */
 [class*="containerDefault_"] h3 {
   background-color: var(--fluenty-card) !important;
   background-image: var(--fluenty-chip-sheen) !important;
@@ -954,9 +619,6 @@ body,
   background-color: var(--fluenty-card-hover) !important;
 }
 
-/* --- "Direct Messages" header: the same chip + button pair as the channel
-   categories. It is an <h2> in the DM sidebar, not the <h3> the category rule
-   keys on, so it needs its own selector. --- */
 [class*="privateChannels_"] h2 {
   display: flex !important;
   align-items: center !important;
@@ -967,8 +629,6 @@ body,
   height: auto !important;
 }
 
-/* flex:0 0 auto — Discord gives headerText flex:1, which stretched the chip
-   across the whole row instead of hugging the text like the category chips. */
 [class*="privateChannels_"] h2 [class*="headerText_"] {
   flex: 0 0 auto !important;
   width: auto !important;
@@ -984,8 +644,6 @@ body,
   background-color: var(--fluenty-card-hover) !important;
 }
 
-/* [role="button"] is the live one — the addButton_ and bare <a> variants that
-   used to be listed here never matched on this build. */
 [class*="privateChannels_"] h2 [role="button"] {
   background-color: var(--fluenty-card) !important;
   background-image: var(--fluenty-chip-sheen) !important;
@@ -1018,11 +676,6 @@ body,
   background-color: var(--fluenty-card-hover) !important;
 }
 
-/* Discord's own button inside the header carries a background of its own, which
-   showed as a bubble nested inside our bubble. Flatten it so only the card
-   reads as a surface. */
-/* The "> button" variant never matched — the header's clickable element is a
-   div on this build. */
 [class*="sidebar_"] [class*="header_"]:not(h3):not(h2) > div,
 [class*="sidebar_"] [class*="header_"]:not(h3):not(h2) [class*="guildDropdown"] {
   background-color: transparent !important;
@@ -1030,28 +683,6 @@ body,
   box-shadow: none !important;
 }
 
-/* --- Every panel in the user-area stack gets the same card: Voice Connected,
-   the game-activity bar ("Garry's Mod / Not Sharing"), and the Listening Along
-   panel — which the previous selectors missed, so it sat flat on the base.
-
-   Matched STRUCTURALLY, not by class. This rule used to key the voice panel on
-   :has([class*="rtcConnectionStatus"]) to dodge the phantom empty wrapper, and
-   that scoping is exactly why Listening Along fell through: it is another
-   direct child of panels_ with no rtcConnectionStatus inside, so it landed on
-   the flatten rule below instead. Enumerating panel types by class is a losing
-   game — Discord adds new ones (listen-along, stream preview) and hashes their
-   names — but the structure holds: every REAL panel is a non-empty direct
-   child of panels_, the phantom box is empty, and the account row is always
-   last. :not(:empty) keeps the phantom flat; :not(:last-child) leaves the
-   account row to its own rule below, which carries the nameplate handling this
-   one must not clobber.
-
-   PERF: this also retires the :has(). :empty and :last-child are answered from
-   the element itself — no descendant walk, no "affected by :has" flagging.
-
-   Opaque panel fill, not a translucent card: like its siblings, a see-through
-   fill here lets the gradient base read through as a hole (see the §11 header
-   note on why the user-area panels are opaque). --- */
 [class*="panels_"] > *:not(:empty):not(:last-child) {
   background-color: var(--fluenty-panel) !important;
   background-image: var(--fluenty-panel-sheen) !important;
@@ -1062,35 +693,10 @@ body,
   box-shadow: var(--elevation-low) !important;
 }
 
-/* The activity row reads a touch small beside the voice panel; a little extra
-   padding gives it matching visual weight without changing the shared bubble.
-   The :not(:empty) is not scoping — it lifts specificity to (0,3,0) so this
-   still out-ranks the card rule above, which it used to beat on order alone. */
 [class*="panels_"] > [class*="activityPanel_"]:not(:empty) {
   padding: 7px 8px !important;
 }
 
-/* --- Listening Along panel.
-   Verified against Discord's shipped CSS (asset bundle 33313), not guessed:
-   the header is its own module class, .listeningAlong_e0cf27, and it paints
-   its own opaque fill —
-
-       background: var(--background-gradient-lowest, var(--background-base-low))
-
-   — which §2b resolves to flat rgb(32,32,32). That slab is why it ignored the
-   structural card rule above: Discord also ships
-   .containerListenAlongVisible__37e49, which squares the account row's top
-   corners so this header DOCKS onto the panel stack instead of standing as a
-   plain direct child of panels_.
-
-   Deliberately UNSCOPED: a grep of all 171 CSS bundles shows "listeningAlong_"
-   is the only class in the app with that stem, so an ancestor anchor would add
-   nothing except a way for the rule to silently die if Discord moves the
-   header between containers.
-
-   width:auto, because Discord sets width:100% — with side margins added, 100%
-   of the containing block overflows the card out the right edge. The
-   border-radius also overrides Discord's docked 4px 4px 0 0. --- */
 [class*="listeningAlong_"] {
   background-color: var(--fluenty-panel) !important;
   background-image: var(--fluenty-panel-sheen) !important;
@@ -1098,36 +704,16 @@ body,
   border-radius: 10px !important;
   width: auto !important;
   margin: 0 8px 6px 8px !important;
-  /* A touch roomier than the activity row's 7px — at 7px the header read
-     cramped next to the taller panels below it. */
+
   padding: 10px !important;
   box-shadow: var(--elevation-low) !important;
 }
 
-/* Discord pins these avatars at 20px with its own !important
-   (.avatar_e0cf27 { height:20px!important; width:20px!important }), so this
-   needs the extra ancestor for specificity (0,2,0 vs 0,1,0) — winning on load
-   order alone would depend on Vencord injecting after Discord's sheet. */
 [class*="listeningAlong_"] [class*="avatar_"] {
   width: 24px !important;
   height: 24px !important;
 }
 
-/* Descender fix. Discord's Text/Heading components pair a fixed px line-height
-   with overflow:hidden for ellipsis, sized for its own gg sans — Segoe UI
-   (§3) has deeper descenders, so the "g" in "Listening Along" was sliced at
-   the line box.
-
-   The text stems alone did NOT fix it (v1 of this rule): the subtitle matched —
-   proven by the Spotify glyph rule below landing — yet the clip stayed, so the
-   cutting box is the WRAPPER column around the title/subtitle pair, Discord's
-   usual ellipsis scaffold (overflow:hidden + min-width:0). Hence the
-   first-child selectors: they reach that wrapper and its children without
-   touching the avatar cluster on the right, whose round mask depends on its
-   own overflow staying hidden.
-
-   overflow:visible is safe on all of it: both strings are static UI text, so
-   nothing ever needed the ellipsis. */
 [class*="listeningAlong_"] [class*="text-"],
 [class*="listeningAlong_"] [class*="heading-"],
 [class*="listeningAlong_"] > div:first-child,
@@ -1136,11 +722,6 @@ body,
   overflow: visible !important;
 }
 
-/* Spotify glyph before "on Spotify" — inlined SVG (simple-icons path, Spotify
-   green) so the theme stays a single file, same as the acrylic noise in §1.
-   Keyed on the text-xs stem: the subtitle is the only xs-size text in this
-   header, while the title renders at a larger size, so the glyph cannot land
-   on the wrong line. */
 [class*="listeningAlong_"] [class*="text-xs"]::before {
   content: "";
   display: inline-block;
@@ -1151,37 +732,10 @@ body,
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231db954' d='M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
-/* The phantom empty wrapper stays flat — :not(:empty) already excludes it from
-   the card rule above; this rule additionally clears any fill Discord paints on
-   it. The card rule is more specific (0,3,0 vs 0,2,0), so on the real panels it
-   still wins. */
 [class*="panels_"] > [class*="wrapper_"] {
   background-color: transparent !important;
 }
 
-/* --- Account panel: the same gradient bubble as the category chips.
-
-   Matched by POSITION. The row is not the wrapper_ that the voice panel is, so
-   chrome hung off "panels_ > wrapper_" landed on the phantom box and never
-   appeared on the row; and avatarWrapper_ is not reliably its direct parent
-   either. What holds regardless of how Discord hashes its classes: the account
-   row is the last thing in the user-area section.
-
-   PERF: this must NOT be :has(). ":has(img)" matched the row correctly but
-   made every element that can contain an image "affected by :has" — so every
-   avatar, emoji, embed and attachment the chat inserts or removes forced a
-   style-invalidation walk up its ancestors, app-wide, to re-answer a question
-   about one row in the sidebar. ":has([class*=avatarWrapper_])" is the same
-   trap: an attribute-substring argument cannot use Chromium's class
-   invalidation set, so it re-checks on the class-attribute churn Discord emits
-   for every hover. :last-child is answered from the element itself.
-
-   The row was left transparent originally so a profile nameplate could paint
-   it. With no nameplate set, that is an invisible plate: the avatar, name and
-   buttons float on the bare gradient with nothing behind them. A fill here
-   costs nothing when a nameplate IS set — the nameplate is fitInAccount_, an
-   absolutely-positioned child that covers the whole box and hides the card
-   under it. --- */
 [class*="panels_"] > *:last-child {
   background-color: var(--fluenty-panel) !important;
   background-image: var(--fluenty-panel-sheen) !important;
@@ -1199,12 +753,6 @@ body,
   background-color: var(--fluenty-panel-hover) !important;
 }
 
-/* Discord's own hover fill on the mic, headphone and settings icons: the
-   translucent WinUI subtle fill instead of the opaque slab it paints by default.
-
-   The avatarWrapper_ and withTagAsButton_ rules that used to sit here are gone —
-   a selector-coverage run over the live DOM proved neither class exists on this
-   build, so both were dead. */
 [class*="panels_"] button[class*="button_"] {
   border-radius: 6px !important;
   transition: background-color 0.12s var(--fluenty-ease);
@@ -1218,8 +766,6 @@ body,
   background-color: transparent !important;
 }
 
-/* The account panel's nameplate is sized to Discord's original row, so inside
-   the roomier card it sits as a small square. Pin it to the full box. */
 [class*="panels_"] [class*="fitInAccount_"] {
   position: absolute !important;
   inset: 0 !important;
@@ -1229,30 +775,19 @@ body,
   z-index: 0;
 }
 
-/* Must stay transparent: this list is the sidebar's own scroll surface, and any
-   opaque fill on it paints a solid slab over the voice card that sits below. */
 [class*="sidebarList_"] {
   background-color: transparent !important;
 }
 
-/* Discord pads the end of the message list to clear a message box that used to
-   overlay it. Ours is a separate card in normal flow, so that padding just
-   leaves a dead gap after the last message. */
 [class*="scrollerSpacer_"] {
   height: 12px !important;
 }
 
 /* --- Member bubbles: roomier, softer, no hard border --- */
-/* No padding: the nameplate lives on childContainer, which fills the row's
-   CONTENT box. Any padding here shrinks the nameplate away from the card's
-   edges — that is what left it as a small square inside the bubble. Spacing
-   comes from margin instead. */
+
 [class*="membersWrap"] [class*="member_"] {
   background-color: var(--fluenty-card) !important;
-  /* Per-theme sheen. Dark/Onyx keep this `none` (flat card, unchanged). In
-     Light the flat white-0.65 card barely separated from the grey mica base,
-     so light gets a silvery off-white gradient here to lift the plain (no
-     nameplate) member rows off the background. */
+
   background-image: var(--fluenty-member-sheen) !important;
   border: none !important;
   border-radius: 10px !important;
@@ -1267,12 +802,6 @@ body,
   transition: background-color 0.12s var(--fluenty-ease);
 }
 
-/* childContainer holds the nameplate art and must fill the row edge-to-edge.
-   height:100% does NOT work here: the row's height comes from min-height, which
-   is not a definite height for percentage resolution, and the flex parent
-   centres its children rather than stretching them — so the child collapsed to
-   its content height (34px inside a 48px row) and the nameplate came up short.
-   align-self:stretch is what actually fills it. */
 [class*="membersWrap"] [class*="childContainer_"] {
   position: relative !important;
   flex: 1 1 auto !important;
@@ -1295,9 +824,7 @@ body,
 
 [class*="membersWrap"] [class*="member_"]:hover {
   background-color: var(--fluenty-card-hover) !important;
-  /* In Light the sheen is opaque and would hide the card-hover colour, so hover
-     swaps to a brighter sheen instead. Dark/Onyx resolve this to `none`, so the
-     background-color hover above is what shows — unchanged from before. */
+
   background-image: var(--fluenty-member-sheen-hover) !important;
 }
 
@@ -1318,24 +845,8 @@ body,
   border-radius: 8px !important;
 }
 
-/* ============================================================
-   11b. HOME: FRIENDS / LIBRARY / MESSAGE REQUESTS
-   These screens carry their own opaque Discord surfaces; clearing them lets
-   the gradient base show through, as it does in the chat view.
-   ============================================================ */
+/* 11b. HOME: FRIENDS / LIBRARY / MESSAGE REQUESTS */
 
-/* main:has(> tabBody_) — NOT the chat_-anchored version this briefly had.
-
-   The Friends page is not in the chat column: its chain is
-   page_ > MAIN.container_ > tabBody_, with no chat_ anywhere above it. An
-   earlier pass anchored this :has() to chat_ to stop the bare
-   [class*="container_"] subject from flagging half the app, and that anchor
-   simply killed the rule — the Friends surface went unthemed and it took a
-   selector-coverage run to notice.
-
-   Keying the subject on the MAIN element solves both problems at once: there is
-   exactly one <main>, so the flagged set is a single element — smaller than the
-   chat_ anchor achieved — and it is the right element. */
 [class*="privateChannels_"],
 [class*="privateChannels_"] [class*="scroller_"],
 [class*="nowPlayingColumn_"],
@@ -1370,17 +881,7 @@ main:has(> [class*="tabBody_"]),
   background-color: var(--fluenty-card-hover) !important;
 }
 
-/* ============================================================
-   11c. SERVER SETTINGS / PICKER / QUESTS
-   Anything here paints its own colour rather than reading a token.
-   ============================================================ */
-
-/* The settings shell rules that opened this section — standardSidebarView,
-   sidebarRegionScroller, contentRegion, contentRegionScroller — are all DELETED.
-   A coverage run WITH User Settings open showed not one of them matching, so
-   Discord has renamed the whole cluster. Settings still looks right because §2b
-   overrides the real colour tokens at the source, which is exactly what §2b's
-   own comment predicted would make these class-by-class rules redundant. */
+/* 11c. SERVER SETTINGS / PICKER / QUESTS */
 
 /* Emoji / sticker / GIF picker */
 [class*="categoryList_"],
@@ -1414,11 +915,6 @@ main:has(> [class*="tabBody_"]),
   background-color: var(--fluenty-accent) !important;
 }
 
-/* Context-menu checkboxes (Mute, Disable Video, Server Mute…): blue at rest,
-   green once toggled on — the same blue-off / green-on logic as the toggle
-   switches. Discord marks state with aria-checked on the menu item, so the
-   checked selector reads the ancestor; the extra selectors cover the state also
-   being set on the box itself or via a class. */
 [class*="checkboxIndicator_"] {
   background-color: var(--fluenty-accent) !important;
   border-color: var(--fluenty-accent) !important;
@@ -1426,8 +922,6 @@ main:has(> [class*="tabBody_"]),
   transition: background-color 0.12s var(--fluenty-ease), border-color 0.12s var(--fluenty-ease);
 }
 
-/* The ancestor form is the live one; the two variants that put the state on the
-   box itself never matched, so they are gone. */
 [aria-checked="true"] [class*="checkboxIndicator_"] {
   background-color: #2f9e5f !important;
   border-color: #2f9e5f !important;
@@ -1438,8 +932,6 @@ main:has(> [class*="tabBody_"]),
   background-color: var(--fluenty-accent) !important;
 }
 
-/* The Discord home button sits among neutral guild icons, so a solid accent
-   square shouts. Neutral at rest, accent on hover. */
 [class*="childWrapper_"] {
   background-color: var(--fluenty-card) !important;
   transition: background-color 0.15s var(--fluenty-ease);
@@ -1449,27 +941,7 @@ main:has(> [class*="tabBody_"]),
   background-color: var(--fluenty-accent) !important;
 }
 
-/* ============================================================
-   11d. PROFILES
-
-   DELETED, not fixed: three rules keyed on [class*="themeContainer_"], plus the
-   --profile-gradient-modal-background-color override that hung off the same
-   selector.
-
-   themeContainer_ does not exist. A DOM dump of an open profile modal returned
-   no element with that class anywhere, so those rules had never matched
-   anything on this build — the profile surfaces that DO look right are getting
-   their colour from the §2b surface tokens, not from §11d. Keeping dead
-   selectors around is not free: they were the reason three separate attempts at
-   the modal "did nothing", because there was no way to tell a rule that misses
-   from a rule that is overridden.
-
-   The .user-profile-popout rule below is the one survivor, and it is UNVERIFIED
-   — it keys on a non-hashed class plus an inline-style discriminator, neither
-   of which the modal dump could confirm or refute. Open a profile POPOUT (single
-   click a member) and run the dump again if you want this settled; if the class
-   is gone, delete this too.
-   ============================================================ */
+/* 11d. PROFILES */
 
 .user-profile-popout[style*="--background-surface-high"] {
   backdrop-filter: blur(30px) saturate(1.25);
@@ -1478,25 +950,8 @@ main:has(> [class*="tabBody_"]),
   box-shadow: var(--elevation-high) !important;
 }
 
-/* ============================================================
-   11e. FULL PROFILE MODAL
-   ============================================================ */
+/* 11e. FULL PROFILE MODAL */
 
-/* The modal root paints NOTHING. That is the whole bug: the left column
-   (profile__) already resolves to rgb(44,44,44) from the §2b surface tokens, so
-   only the right half looked broken — what showed through it was scrim__, the
-   72%-black dimmer over the chat, not a colour of the modal's own.
-
-   Matched structurally, because the class names here cannot be relied on: the
-   root is the one child of the dialog that contains the profile column. That
-   excludes the scrim, which is the dialog's other child and must stay a dimmer
-   — painting it would drop an opaque sheet over the whole window.
-
-   [role="dialog"] is ARIA, not a hashed class, so it survives Discord's
-   renames. The :has() is the cheap kind: dialogs are a couple of elements that
-   exist only while one is open, so the set Chromium flags as "affected by :has"
-   is tiny and short-lived — nothing like the [class*="container_"] subjects in
-   §10b that flagged half the app. */
 [role="dialog"] > *:has([class*="profile__"]) {
   background-color: var(--fluenty-layer) !important;
   border: 1px solid var(--fluenty-stroke-card) !important;
@@ -1505,9 +960,7 @@ main:has(> [class*="tabBody_"]),
   overflow: hidden !important;
 }
 
-/* ============================================================
-   12. MOTION
-   ============================================================ */
+/* 12. MOTION */
 
 [class*="contextMenu_"],
 [class*="menu_"],
@@ -1516,16 +969,7 @@ main:has(> [class*="tabBody_"]),
   animation-timing-function: var(--fluenty-ease-out) !important;
 }
 
-
-/* ============================================================
-   13. HOME BUTTON LOGO
-   The DMs/home button's built-in Discord glyph, swapped for a custom logo
-   embedded as a base64 PNG so the theme stays a single portable file (the source
-   was downscaled to 96px first — a 48px button needs no more). Scoped to
-   data-list-item-id="guildsnav___home", the one stable unique id for that button,
-   so the +/compass/download action buttons — which also use childWrapper_ — are
-   left alone. The glyph is hidden rather than removed so the layout is untouched.
-   ============================================================ */
+/* 13. HOME BUTTON LOGO */
 [data-list-item-id="guildsnav___home"] [class*="childWrapper_"] svg {
   display: none !important;
 }
@@ -1537,26 +981,12 @@ main:has(> [class*="tabBody_"]),
   background-size: 30px 30px !important;
 }
 
-/* ============================================================
-   1b. THEME OVERRIDES
-   The per-theme palettes. :root above is the DARK/Fluent baseline; each block
-   here restates ONLY the variables that differ from it, and — being last in
-   source order at equal (0,1,0) specificity — wins whenever its class is on
-   <html>. Discord tags exactly one appearance:
-     .theme-light                → Light
-     .theme-dark (no midnight)   → matches neither block, baseline stands
-     .theme-dark.theme-midnight  → Onyx, matched by .theme-midnight
-
-   Everything is a value swap; not one selector below this line targets Discord
-   markup, so the structural rules in §2–§13 never had to be duplicated.
-   ============================================================ */
+/* 1b. THEME OVERRIDES */
 
 /* ---------- LIGHT ---------- */
 .theme-light {
-  /* Sky-blue is illegible on white, so links/focus/pills use the full accent. */
   --fluenty-accent-light: #005fb8;
 
-  /* Ramp inverted: deepest backdrop → brightest surface, all near-white. */
   --fluenty-13: 228, 228, 228;
   --fluenty-19: 255, 255, 255;
   --fluenty-1b: 243, 243, 243;
@@ -1567,25 +997,20 @@ main:has(> [class*="tabBody_"]),
 
   --fluenty-acrylic: rgba(252, 252, 252, 0.86);
 
-  /* State fills flip to translucent BLACK; the control fill stays ~70% white
-     so controls lift off the grey mica. */
   --fluenty-fill-hover: rgba(0, 0, 0, 0.0373);
   --fluenty-fill-pressed: rgba(0, 0, 0, 0.0241);
   --fluenty-fill-selected: rgba(0, 0, 0, 0.0605);
   --fluenty-fill-control: rgba(255, 255, 255, 0.7);
 
-  /* All strokes black-based on light. */
   --fluenty-stroke-control: rgba(0, 0, 0, 0.0578);
   --fluenty-stroke-card: rgba(0, 0, 0, 0.0578);
   --fluenty-stroke-divider: rgba(0, 0, 0, 0.0803);
 
-  /* Text ramp: black on light. */
   --fluenty-text-primary: rgba(0, 0, 0, 0.8956);
   --fluenty-text-secondary: rgba(0, 0, 0, 0.6725);
   --fluenty-text-tertiary: rgba(0, 0, 0, 0.4458);
   --fluenty-text-disabled: rgba(0, 0, 0, 0.3614);
 
-  /* Shadows ~halved: a dark-mode-soft shadow is a hard grey halo on white. */
   --fluenty-elev-low: 0 1px 2px rgba(0, 0, 0, 0.07), 0 0 2px rgba(0, 0, 0, 0.05);
   --fluenty-elev-medium: 0 4px 8px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.06);
   --fluenty-elev-high: 0 8px 16px rgba(0, 0, 0, 0.09), 0 0 2px rgba(0, 0, 0, 0.06);
@@ -1594,8 +1019,6 @@ main:has(> [class*="tabBody_"]),
   --fluenty-mod-subtle: rgba(0, 0, 0, 0.05);
   --fluenty-mod-strong: rgba(0, 0, 0, 0.07);
 
-  /* Cards INVERT: on the light grey mica a translucent-white card is invisible,
-     so light cards are a MORE-opaque white with a black stroke. */
   --fluenty-card: rgba(255, 255, 255, 0.65);
   --fluenty-card-hover: rgba(255, 255, 255, 0.9);
   --fluenty-card-stroke: rgba(0, 0, 0, 0.06);
@@ -1605,29 +1028,21 @@ main:has(> [class*="tabBody_"]),
   --fluenty-scrollbar-hover: rgba(0, 0, 0, 0.42);
   --fluenty-input-underline: rgba(0, 0, 0, 0.34);
   --fluenty-hover-tint: rgba(0, 0, 0, 0.0261);
-  /* Silvery off-white gradient for member cards: bright white top settling to a
-     light silver-grey, so plain rows read as raised brushed-metal cards against
-     the mica instead of blending in. Opaque, so it sits over --fluenty-card. */
+
   --fluenty-member-sheen: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(233, 235, 239) 100%);
   --fluenty-member-sheen-hover: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(240, 242, 245) 100%);
 
-  /* Softer, all-accent glow — the pale-blue stop turns cyan-bright on white. */
   --fluenty-base-gradient:
     radial-gradient(125% 90% at 0% 0%, rgba(0, 95, 184, 0.1), transparent 58%),
     radial-gradient(110% 85% at 100% 100%, rgba(0, 95, 184, 0.05), transparent 55%);
 
-  /* Sheens flip to a black-based depth gradient — white-on-white is invisible. */
   --fluenty-chip-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(0, 0, 0, 0.025));
   --fluenty-panel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(0, 0, 0, 0.012));
 }
 
 /* ---------- ONYX / MIDNIGHT ---------- */
-/* Onyx's <html> carries theme-dark AND theme-midnight; this block keys on
-   .theme-midnight so it overrides the dark baseline (equal specificity, later
-   in source) only for Onyx. accent-light, the text ramp, scrollbar, input
-   underline and both sheens equal the dark baseline, so they are omitted. */
+
 .theme-midnight {
-  /* Ramp pushed toward near-black, ~6-level gaps kept so layers stay separable. */
   --fluenty-13: 6, 6, 6;
   --fluenty-19: 10, 10, 10;
   --fluenty-1b: 14, 14, 14;
@@ -1638,17 +1053,14 @@ main:has(> [class*="tabBody_"]),
 
   --fluenty-acrylic: rgba(20, 20, 20, 0.86);
 
-  /* Fills nudged up: 6% white that reads on #202020 is faint on #0e0e0e. */
   --fluenty-fill-hover: rgba(255, 255, 255, 0.076);
   --fluenty-fill-pressed: rgba(255, 255, 255, 0.052);
   --fluenty-fill-selected: rgba(255, 255, 255, 0.1);
   --fluenty-fill-control: rgba(255, 255, 255, 0.076);
 
-  /* Card stroke flips black→faint white: a black edge is invisible on near-black. */
   --fluenty-stroke-card: rgba(255, 255, 255, 0.055);
   --fluenty-stroke-divider: rgba(255, 255, 255, 0.07);
 
-  /* Shadows deepened: a 0.13 shadow vanishes against near-black. */
   --fluenty-elev-low: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.22);
   --fluenty-elev-medium: 0 4px 8px rgba(0, 0, 0, 0.36), 0 0 2px rgba(0, 0, 0, 0.26);
   --fluenty-elev-high: 0 8px 16px rgba(0, 0, 0, 0.46), 0 0 2px rgba(0, 0, 0, 0.3);
@@ -1657,12 +1069,10 @@ main:has(> [class*="tabBody_"]),
   --fluenty-mod-subtle: rgba(255, 255, 255, 0.07);
   --fluenty-mod-strong: rgba(255, 255, 255, 0.11);
 
-  /* Cards bumped a touch — same alpha lifts less over the darker base. */
   --fluenty-card: rgba(255, 255, 255, 0.06);
   --fluenty-card-hover: rgba(255, 255, 255, 0.11);
   --fluenty-pane: rgba(255, 255, 255, 0.028);
 
-  /* Softer glow — near-black makes the corner bloom harder. */
   --fluenty-base-gradient:
     radial-gradient(125% 90% at 0% 0%, rgba(0, 95, 184, 0.15), transparent 58%),
     radial-gradient(110% 85% at 100% 100%, rgba(96, 205, 255, 0.06), transparent 55%);

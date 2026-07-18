@@ -1,10 +1,6 @@
 /* =============================================================================
    UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
    Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
-
-   FLUENT TOKENS — identical in every stylesheet of this theme so each file
-   stays self-sufficient (some are loaded by pages that don't pull in the rest).
-   Swap the accent block below to reskin; no rule hard-codes a colour.
    ========================================================================== */
 :root {
     /* Accent — Umbraflow violet by default, Fluent green alternative in comments. */
@@ -71,13 +67,7 @@
     --font-mono:    "Cascadia Mono", "Cascadia Code", Consolas, monospace;
 }
 
-/* -----------------------------------------------------------------------------
-   Navigation pane. Fluent would put this on its own surface; here the labels
-   sit directly over the 3D background with a soft text-shadow for legibility
-   (the earlier dark left-to-right scrim was removed — it bled onto the main
-   menu list and read as a stray black shade).
-   -------------------------------------------------------------------------- */
-
+/* Navigation pane */
 DIV.page DIV.options {
     position: absolute;
     left: 0;

@@ -1,11 +1,6 @@
 /* =============================================================================
    UMBRAFLOW  —  Fluent-inspired Garry's Mod menu theme.
    Created by Big_Killers  ·  v1.0.0  ·  © Big_Killers. All rights reserved.
-
-   FLUENT — global stylesheet
-   Injected by the engine into every HTML panel. Kept deliberately narrow in
-   scope (form controls + scrollbars only) so it can't disfigure HTML HUDs
-   drawn by servers or other addons.
    ========================================================================== */
 
 :root {
