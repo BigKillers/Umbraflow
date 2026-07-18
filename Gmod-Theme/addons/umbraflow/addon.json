@@ -1,7 +1,0 @@
-{
-	"title"			:	"Umbraflow",
-	"type"			:	"tool",
-	"tags"			:	[ "fun", "roleplay" ],
-	"ignore"		:	[ "*.md", "*.psd" ],
-	"description"	:	"Fluent-inspired Garry's Mod theme — the kill feed. Clientside only; draws in place of the default death notices. Created by Big_Killers."
-}
