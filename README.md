@@ -127,6 +127,14 @@ applies to all three palettes.
 
 ---
 
+## 💬 Community
+
+Join the Discord for support, updates, previews, and to share your setup:
+
+### ➡️ **[discord.gg/4UVrZtkyYs](https://discord.gg/4UVrZtkyYs)**
+
+---
+
 ## 🐛 Issues & Contributions
 
 Found a bug or have an idea? Open an [issue](../../issues). Pull requests are
