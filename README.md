@@ -34,7 +34,7 @@ across both platforms.
 
 ## 🗨️ Discord
 
-`Discord-Themes/umbraflow-all.css` holds **three palettes** and switches
+`Discord-Themes/umbraflow.css` holds **three palettes** and switches
 automatically to match your Discord appearance:
 
 | Discord appearance | Palette |
@@ -45,7 +45,7 @@ automatically to match your Discord appearance:
 
 ### Install
 
-Download **`Discord-Themes/umbraflow-all.css`** from this repo (or the
+Download **`Discord-Themes/umbraflow.css`** from this repo (or the
 [Releases](../../releases) page). Then pick your client mod:
 
 <details open>
@@ -53,12 +53,12 @@ Download **`Discord-Themes/umbraflow-all.css`** from this repo (or the
 
 1. Install [Vencord](https://vencord.dev/).
 2. Discord → **Settings** → **Vencord → Themes** → **Open Themes Folder**.
-3. Drop `umbraflow-all.css` into that folder.
+3. Drop `umbraflow.css` into that folder.
 4. Enable **Umbraflow** in the Themes list.
 
 **Auto-updating alternative:** under **Themes → Online Themes**, paste:
 ```
-https://raw.githubusercontent.com/BigKillers/Umbraflow/main/Discord-Themes/umbraflow-all.css
+https://raw.githubusercontent.com/BigKillers/Umbraflow/main/Discord-Themes/umbraflow.css
 ```
 </details>
 
@@ -74,7 +74,7 @@ drop the file in, enable it.
 
 1. Install [BetterDiscord](https://betterdiscord.app/).
 2. Discord → **Settings** → **Themes** → **Open Themes Folder**.
-3. Drop `umbraflow-all.css` into that folder.
+3. Drop `umbraflow.css` into that folder.
 4. Toggle **Umbraflow** on in the Themes list.
 
 The file includes the required metadata header, so it shows with its name and author.
@@ -120,7 +120,7 @@ To revert, restore your backup or verify the game's files through Steam.
 ## 🎨 Customization
 
 All Discord colors are CSS variables. The **Dark** palette is the `:root` block
-near the top of `umbraflow-all.css`; **Light** and **Onyx** are the two blocks
+near the top of `umbraflow.css`; **Light** and **Onyx** are the two blocks
 under **`1b. THEME OVERRIDES`** at the bottom, each listing only what differs.
 Edit a value and reload — the layout rules read the variables, so one change
 applies to all three palettes.
