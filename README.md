@@ -111,7 +111,7 @@ The Discord colors are all CSS variables. The Dark palette is the `:root` block 
 
 Questions, updates, or want to show off your setup? Come hang out:
 
-**[discord.gg/4UVrZtkyYs](https://discord.gg/umbraflow)**
+**[discord.gg/umbraflow](https://discord.gg/umbraflow)**
 
 ---
 
