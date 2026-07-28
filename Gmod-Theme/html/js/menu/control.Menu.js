@@ -391,9 +391,18 @@ function SetProblemCount( num, severity )
 //
 // Setup sounds..
 //
-$(document).on( "mouseenter", ".options a",			function() { lua.PlaySound( "garrysmod/ui_hover.wav" ); } );
+
+// Custom Umbraflow hover sound (sound/umbraflow/hover.wav, played via the
+// engine sound bridge). One selector covers every button-like control in the
+// menus: the main-menu / settings navigation links (.options a), the NavBar
+// buttons (.button), dialog command buttons (.centermessage a / .button) and
+// anything explicitly tagged .noisy / .ui_sound_return.
+var UMBRA_HOVER_SELECTOR =
+	".options a, .button, .noisy, .ui_sound_return, .centermessage a, .centermessage .button, ul.popup li";
+
+$(document).on( "mouseenter", UMBRA_HOVER_SELECTOR,	function() { lua.PlaySound( "umbraflow/hover.wav" ); } );
+
+// Click sounds keep the stock Garry's Mod feedback.
 $(document).on( "click", ".options a",				function() { lua.PlaySound( "garrysmod/ui_click.wav" ); } );
-$(document).on( "mouseenter", ".noisy",				function() { lua.PlaySound( "garrysmod/ui_hover.wav" ); } );
 $(document).on( "click", ".noisy",					function() { lua.PlaySound( "garrysmod/ui_click.wav" ); } );
-$(document).on( "mouseenter", ".ui_sound_return",	function() { lua.PlaySound( "garrysmod/ui_hover.wav" ); } );
 $(document).on( "click", ".ui_sound_return",		function() { lua.PlaySound( "garrysmod/ui_return.wav" ); } );
