@@ -402,6 +402,17 @@ loading {
 }
 
 /* -----------------------------------------------------------------------------
+   Hidden main-menu chrome — the branch/version pill (top-right "You are on the
+   … branch") and the news/update card are removed permanently. They are still
+   built by GMod's base menu, so display:none is the robust way to suppress them.
+   -------------------------------------------------------------------------- */
+
+#version,
+.news {
+    display: none !important;
+}
+
+/* -----------------------------------------------------------------------------
    News card
    -------------------------------------------------------------------------- */
 
