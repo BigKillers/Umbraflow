@@ -14,6 +14,7 @@ A dark theme for Discord and Garry's Mod, based on the Windows 11 Fluent look. M
 - Windows 11 Fluent styling: acrylic-style surfaces, rounded corners, and soft shadows.
 - The Discord theme changes itself to match your Discord appearance (Light, Dark, or Onyx). You don't toggle anything.
 - Discord and Garry's Mod share the same look.
+- The Garry's Mod menu plays a soft hover sound when you mouse over the buttons.
 - The Discord theme is a single file with everything inlined, so there are no extra assets to install.
 
 ---
@@ -87,7 +88,7 @@ Discord puts a class on the app for the current appearance (`theme-light`, `them
 
 ## Garry's Mod
 
-The `Gmod-Theme/` folder mirrors your `garrysmod` directory. It has the main menu, loading screen, VGUI scheme (`resource/SourceScheme.res`), and custom logos.
+The `Gmod-Theme/` folder mirrors your `garrysmod` directory. It has the main menu, loading screen, VGUI scheme (`resource/SourceScheme.res`), custom logos, and a hover sound for the menu buttons.
 
 ### Install
 
@@ -98,6 +99,10 @@ The `Gmod-Theme/` folder mirrors your `garrysmod` directory. It has the main men
 3. Restart Garry's Mod.
 
 To undo it, restore your backup or verify the game files through Steam.
+
+### Menu sound
+
+Hovering a menu button plays `sound/umbraflow/hover.wav`. Want your own sound? Drop a `.wav` in at that same path and keep the name, and it just works. A short 16-bit wav (mono, 44.1kHz) is the safe bet. If you'd rather point it somewhere else or turn it off, the hover line is at the bottom of `html/js/menu/control.Menu.js`.
 
 ---
 
