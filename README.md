@@ -21,11 +21,9 @@ A dark theme for Discord and Garry's Mod, based on the Windows 11 Fluent look. M
 
 ## Screenshots
 
-<!-- Drop your screenshots in a /screenshots folder and link them here -->
-
 | Discord | Garry's Mod |
 |---------|-------------|
-| ![Discord preview](screenshots/discord.png) | ![Gmod preview](screenshots/gmod.png) |
+| ![Discord preview](screenshots/discord-server.png)<br>![Discord settings preview](screenshots/discord-settings.png) | ![Gmod preview](screenshots/gmod.png) |
 
 ---
 
