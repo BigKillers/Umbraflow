@@ -3,7 +3,7 @@
  * @description Fluent Windows 11-inspired theme — auto-switches between Light,
  *              Dark (Fluent) and Onyx (Midnight) with Discord's appearance.
  * @author Big_Killers
- * @version 1.0.0
+ * @version 1.0.2
  */
 
 /* ALL-IN-ONE VARIANT */
@@ -190,7 +190,8 @@ body {
 
 /* 5. ACRYLIC SURFACES */
 
-[class*="contextMenu_"],
+/* contextMenu_ retired — Discord unified message/channel/user context menus
+   onto the single menu_ component (checked live against all three). */
 [class*="menu_"],
 [class*="autocomplete_"] {
 
@@ -208,15 +209,18 @@ body {
   box-shadow: var(--elevation-high) !important;
 }
 
-[class*="contextMenu_"] [class*="item_"],
-[class*="menu_"] [class*="item_"] {
+/* Case-insensitive "i" flag matters here: live menu items are now classed
+   customItem_xxxxx (capital I) rather than item_xxxxx, and [class*=] is
+   case-sensitive without it. */
+[class*="menu_"] [class*="item_" i] {
   border-radius: 4px !important;
   transition: background-color 0.08s var(--fluenty-ease);
 }
 
-[class*="profileBody_"],
-[class*="profileContentInner_"],
-[class*="profileContentOuter_"] {
+/* profileBody_/profileContentInner_/profileContentOuter_ no longer exist —
+   the popout's inner wrapper is unlabeled now, so scope by the stable
+   .user-profile-popout class instead of a dead class fragment. */
+.user-profile-popout [class*="inner_"] {
   background: transparent !important;
 }
 
@@ -264,6 +268,9 @@ body {
 
 /* 7. CONTROLS */
 
+/* lookLink no longer matched live in testing either; kept as a harmless
+   :not() (worst case a link-style button gets an extra border) rather than
+   guessing its replacement name without a live sample to confirm against. */
 button[class*="button_"]:not([class*="lookBlank"]):not([class*="lookLink"]) {
   border-radius: 4px !important;
   border: 1px solid var(--fluenty-stroke-control) !important;
@@ -271,18 +278,25 @@ button[class*="button_"]:not([class*="lookBlank"]):not([class*="lookLink"]) {
   transition: background-color 0.1s var(--fluenty-ease), border-color 0.1s var(--fluenty-ease);
 }
 
-button[class*="lookFilled_"][class*="colorBrand_"] {
+/* Discord's button component was rebuilt: the old look{Filled}_ + color{Brand}_
+   pair is gone from the main button system (still true for a few compact icon
+   buttons like mic/deafen, which is why it's kept below). Current filled/brand
+   buttons carry class*="primary_" instead (e.g. button_x md_x primary_x hasText_x). */
+button[class*="lookFilled_"][class*="colorBrand_"],
+button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]) {
   background: var(--fluenty-accent) !important;
   color: #fff !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-bottom-color: rgba(0, 0, 0, 0.24) !important;
 }
 
-button[class*="lookFilled_"][class*="colorBrand_"]:hover {
+button[class*="lookFilled_"][class*="colorBrand_"]:hover,
+button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]):hover {
   background: var(--fluenty-accent-hover) !important;
 }
 
-button[class*="lookFilled_"][class*="colorBrand_"]:active {
+button[class*="lookFilled_"][class*="colorBrand_"]:active,
+button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]):active {
   background: var(--fluenty-accent-pressed) !important;
   border-bottom-color: transparent !important;
 }
@@ -292,17 +306,20 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   box-shadow: none !important;
 }
 
-[class*="panels_"] button[class*="lookFilled_"][class*="colorBrand_"] {
+[class*="panels_"] button[class*="lookFilled_"][class*="colorBrand_"],
+[class*="panels_"] button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]) {
   background-color: var(--fluenty-card) !important;
   color: var(--fluenty-text-primary) !important;
   border-radius: 6px !important;
 }
 
-[class*="panels_"] button[class*="lookFilled_"][class*="colorBrand_"]:hover {
+[class*="panels_"] button[class*="lookFilled_"][class*="colorBrand_"]:hover,
+[class*="panels_"] button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]):hover {
   background-color: var(--fluenty-card-hover) !important;
 }
 
-[class*="panels_"] button[class*="lookFilled_"][class*="colorBrand_"]:active {
+[class*="panels_"] button[class*="lookFilled_"][class*="colorBrand_"]:active,
+[class*="panels_"] button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]):active {
   background-color: var(--fluenty-fill-pressed) !important;
 }
 
@@ -324,8 +341,7 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
 }
 
 [class*="searchBar_"] [class*="input_"],
-[class*="searchBar_"] input,
-[class*="contentWrapper_"] [class*="input_"] {
+[class*="searchBar_"] input {
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
@@ -334,10 +350,14 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
 
 /* 9. NAVIGATION */
 
-[class*="containerDefault_"] [class*="link_"],
-[class*="channel_"] [class*="link_"] {
+/* channel_ no longer exists as a class fragment anywhere in the DOM, so
+   containerDefault_ alone covers channel links. Radius/margin here match
+   the member bubbles (§11) — previously a second rule down there just
+   re-overrode the radius; merged into one. */
+[class*="containerDefault_"] [class*="link_"] {
   position: relative;
-  border-radius: 4px !important;
+  margin: 1px 8px;
+  border-radius: 8px !important;
   transition: background-color 0.1s var(--fluenty-ease);
 }
 
@@ -354,7 +374,8 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
 }
 
 [class*="modeSelected"] [class*="link_"] {
-  background: var(--fluenty-fill-selected) !important;
+  background-color: var(--fluenty-card-hover) !important;
+  border-radius: 8px !important;
 }
 
 [class*="guilds_"] foreignObject {
@@ -390,8 +411,7 @@ button[class*="lookFilled_"][class*="colorBrand_"]:active {
   box-shadow: none !important;
 }
 
-[class*="layer_"] [class*="contentContainer_"],
-[class*="layer_"] [class*="contentWrapper_"] {
+[class*="layer_"] [class*="contentContainer_"] {
   background: var(--fluenty-layer) !important;
 }
 
@@ -480,7 +500,6 @@ body,
 [class*="guilds_"],
 [class*="membersWrap"],
 [class*="panels_"],
-[class*="toolbar_"],
 [class*="chat_"],
 [class*="chatContent"] {
   background-color: transparent !important;
@@ -834,16 +853,8 @@ body,
   padding-left: 10px;
 }
 
-/* --- Channel rows match the member bubbles --- */
-[class*="containerDefault_"] [class*="link_"] {
-  margin: 1px 8px;
-  border-radius: 8px !important;
-}
-
-[class*="modeSelected"] [class*="link_"] {
-  background-color: var(--fluenty-card-hover) !important;
-  border-radius: 8px !important;
-}
+/* Channel rows match the member bubbles — see the merged containerDefault_/
+   modeSelected link_ rules in §9 NAVIGATION, which now carry these values. */
 
 /* 11b. HOME: FRIENDS / LIBRARY / MESSAGE REQUESTS */
 
@@ -911,10 +922,20 @@ main:has(> [class*="tabBody_"]),
 }
 
 /* Remaining hardcoded blurple */
+/* TODO: checked 7 live badges across two members' profiles (boost badge,
+   verified marks) and none carried a brand_ modifier class — current badge
+   classing may not use that suffix anymore. Left in place since it's a
+   single low-visibility property; re-check against a badge you know is
+   blurple-by-default if you spot one still showing unstyled. */
 [class*="badge_"][class*="brand_"] {
   background-color: var(--fluenty-accent) !important;
 }
 
+/* TODO: checkboxIndicator_ didn't turn up on any toggle we could find live —
+   every settings toggle we found is now a switch (handled by switchIndicator_
+   above, confirmed working). True square checkboxes may still exist elsewhere
+   (permission lists, multi-select). Find one in a live client and re-check
+   this selector's class name before relying on it. */
 [class*="checkboxIndicator_"] {
   background-color: var(--fluenty-accent) !important;
   border-color: var(--fluenty-accent) !important;
@@ -943,7 +964,11 @@ main:has(> [class*="tabBody_"]),
 
 /* 11d. PROFILES */
 
-.user-profile-popout[style*="--background-surface-high"] {
+/* The [style*="--background-surface-high"] guard never matches current
+   Discord builds (that inline var isn't set on this element anymore, and
+   custom-banner profiles set different inline vars entirely) — .user-profile-popout
+   itself is stable, so style directly off that. */
+.user-profile-popout {
   backdrop-filter: blur(30px) saturate(1.25);
   border: 1px solid var(--fluenty-card-stroke) !important;
   border-radius: 10px !important;
@@ -962,7 +987,6 @@ main:has(> [class*="tabBody_"]),
 
 /* 12. MOTION */
 
-[class*="contextMenu_"],
 [class*="menu_"],
 [class*="modal_"],
 [class*="layer_"] {
