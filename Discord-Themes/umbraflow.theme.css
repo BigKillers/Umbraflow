@@ -26,24 +26,22 @@
   --fluenty-30: 48, 48, 48;
   --fluenty-37: 55, 55, 55;
 
-  /* Layers: mica backdrop (darker) under a content layer (lighter) */
+  /* mica backdrop sits darker than the content layer on top of it */
   --fluenty-mica: rgb(var(--fluenty-1b));
   --fluenty-layer: rgb(var(--fluenty-20));
 
   --fluenty-acrylic: rgba(44, 44, 44, 0.86);
 
-  /* WinUI subtle fills — hover/pressed states are translucent white, not solid */
+  /* hover/pressed fills are translucent white, not a solid color */
   --fluenty-fill-hover: rgba(255, 255, 255, 0.0605);
   --fluenty-fill-pressed: rgba(255, 255, 255, 0.0419);
   --fluenty-fill-selected: rgba(255, 255, 255, 0.0837);
   --fluenty-fill-control: rgba(255, 255, 255, 0.0605);
 
-  /* WinUI strokes */
   --fluenty-stroke-control: rgba(255, 255, 255, 0.0837);
   --fluenty-stroke-card: rgba(0, 0, 0, 0.1);
   --fluenty-stroke-divider: rgba(255, 255, 255, 0.0837);
 
-  /* WinUI dark text ramp */
   --fluenty-text-primary: rgba(255, 255, 255, 1);
   --fluenty-text-secondary: rgba(255, 255, 255, 0.786);
   --fluenty-text-tertiary: rgba(255, 255, 255, 0.5442);
@@ -55,24 +53,19 @@
   --fluenty-mod-faint: rgba(255, 255, 255, 0.03);
   --fluenty-mod-subtle: rgba(255, 255, 255, 0.06);
   --fluenty-mod-strong: rgba(255, 255, 255, 0.09);
-  /* — scrollbar thumb (§6)   — input resting underline (§8) */
   --fluenty-scrollbar: rgba(255, 255, 255, 0.2);
   --fluenty-scrollbar-hover: rgba(255, 255, 255, 0.45);
   --fluenty-input-underline: rgba(255, 255, 255, 0.16);
-  /* — #app-mount base glow (§11) */
   --fluenty-base-gradient:
     radial-gradient(125% 90% at 0% 0%, rgba(0, 95, 184, 0.22), transparent 58%),
     radial-gradient(110% 85% at 100% 100%, rgba(96, 205, 255, 0.09), transparent 55%);
-  /* — chip/button top sheen (§11)   — panel top sheen (§11) */
   --fluenty-chip-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.01));
   --fluenty-panel-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
-  /* — faint tint on message hover / deprecated cards (§2) */
   --fluenty-hover-tint: rgba(255, 255, 255, 0.0261);
 
   --fluenty-member-sheen: none;
   --fluenty-member-sheen-hover: none;
 
-  /* WinUI motion curves */
   --fluenty-ease: cubic-bezier(0.1, 0.9, 0.2, 1);
   --fluenty-ease-out: cubic-bezier(0, 0, 0, 1);
 
@@ -190,8 +183,7 @@ body {
 
 /* 5. ACRYLIC SURFACES */
 
-/* contextMenu_ retired — Discord unified message/channel/user context menus
-   onto the single menu_ component (checked live against all three). */
+/* contextMenu_ is gone, Discord merged all its context menus into menu_ */
 [class*="menu_"],
 [class*="autocomplete_"] {
 
@@ -209,17 +201,16 @@ body {
   box-shadow: var(--elevation-high) !important;
 }
 
-/* Case-insensitive "i" flag matters here: live menu items are now classed
-   customItem_xxxxx (capital I) rather than item_xxxxx, and [class*=] is
-   case-sensitive without it. */
+/* keep the "i" flag — menu items are classed customItem_ now, capital I,
+   and [class*=] is case-sensitive without it */
 [class*="menu_"] [class*="item_" i] {
   border-radius: 4px !important;
   transition: background-color 0.08s var(--fluenty-ease);
 }
 
-/* profileBody_/profileContentInner_/profileContentOuter_ no longer exist —
-   the popout's inner wrapper is unlabeled now, so scope by the stable
-   .user-profile-popout class instead of a dead class fragment. */
+/* profileBody_/profileContentInner_/profileContentOuter_ are gone, the
+   popout's inner wrapper has no name anymore, so hang off the stable
+   .user-profile-popout class instead */
 .user-profile-popout [class*="inner_"] {
   background: transparent !important;
 }
@@ -268,9 +259,8 @@ body {
 
 /* 7. CONTROLS */
 
-/* lookLink no longer matched live in testing either; kept as a harmless
-   :not() (worst case a link-style button gets an extra border) rather than
-   guessing its replacement name without a live sample to confirm against. */
+/* lookLink didn't turn up live either — left in the :not() anyway since
+   worst case a link-style button just gets an extra border */
 button[class*="button_"]:not([class*="lookBlank"]):not([class*="lookLink"]) {
   border-radius: 4px !important;
   border: 1px solid var(--fluenty-stroke-control) !important;
@@ -278,10 +268,9 @@ button[class*="button_"]:not([class*="lookBlank"]):not([class*="lookLink"]) {
   transition: background-color 0.1s var(--fluenty-ease), border-color 0.1s var(--fluenty-ease);
 }
 
-/* Discord's button component was rebuilt: the old look{Filled}_ + color{Brand}_
-   pair is gone from the main button system (still true for a few compact icon
-   buttons like mic/deafen, which is why it's kept below). Current filled/brand
-   buttons carry class*="primary_" instead (e.g. button_x md_x primary_x hasText_x). */
+/* Discord rebuilt the button component — lookFilled_/colorBrand_ is dead on
+   normal buttons (still alive on a few compact ones like mic/deafen, hence
+   kept alongside). Filled/brand buttons now carry primary_ instead. */
 button[class*="lookFilled_"][class*="colorBrand_"],
 button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]) {
   background: var(--fluenty-accent) !important;
@@ -350,10 +339,9 @@ button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]):active {
 
 /* 9. NAVIGATION */
 
-/* channel_ no longer exists as a class fragment anywhere in the DOM, so
-   containerDefault_ alone covers channel links. Radius/margin here match
-   the member bubbles (§11) — previously a second rule down there just
-   re-overrode the radius; merged into one. */
+/* channel_ is gone, containerDefault_ alone covers channel links now.
+   Radius/margin match the member bubbles in §11 — used to be a second
+   rule down there just re-overriding the radius; merged into this one. */
 [class*="containerDefault_"] [class*="link_"] {
   position: relative;
   margin: 1px 8px;
@@ -419,7 +407,6 @@ button[class*="button_"][class*="primary_"]:not([class*="lookBlank"]):active {
   background: transparent !important;
 }
 
-/* Divider lines, not shadows */
 [class*="scroller_"] [class*="divider_"] {
   border-color: var(--fluenty-stroke-divider) !important;
 }
@@ -680,7 +667,8 @@ body,
   background-color: var(--fluenty-card-hover) !important;
 }
 
-/* --- Server name header: the same card as the channel header --- */
+/* :not(h3):not(h2) keeps this off the channel-list headers below, which
+   use those tags — this is just the server name banner */
 [class*="sidebar_"] [class*="header_"]:not(h3):not(h2) {
   background-color: var(--fluenty-card) !important;
   border: 1px solid var(--fluenty-card-stroke) !important;
@@ -802,8 +790,6 @@ body,
   height: 12px !important;
 }
 
-/* --- Member bubbles: roomier, softer, no hard border --- */
-
 [class*="membersWrap"] [class*="member_"] {
   background-color: var(--fluenty-card) !important;
 
@@ -852,9 +838,6 @@ body,
   background-color: transparent !important;
   padding-left: 10px;
 }
-
-/* Channel rows match the member bubbles — see the merged containerDefault_/
-   modeSelected link_ rules in §9 NAVIGATION, which now carry these values. */
 
 /* 11b. HOME: FRIENDS / LIBRARY / MESSAGE REQUESTS */
 
@@ -922,20 +905,14 @@ main:has(> [class*="tabBody_"]),
 }
 
 /* Remaining hardcoded blurple */
-/* TODO: checked 7 live badges across two members' profiles (boost badge,
-   verified marks) and none carried a brand_ modifier class — current badge
-   classing may not use that suffix anymore. Left in place since it's a
-   single low-visibility property; re-check against a badge you know is
-   blurple-by-default if you spot one still showing unstyled. */
+/* TODO: never found a live badge with a brand_ modifier to confirm this
+   still works — checked 7 across two profiles, none had it */
 [class*="badge_"][class*="brand_"] {
   background-color: var(--fluenty-accent) !important;
 }
 
-/* TODO: checkboxIndicator_ didn't turn up on any toggle we could find live —
-   every settings toggle we found is now a switch (handled by switchIndicator_
-   above, confirmed working). True square checkboxes may still exist elsewhere
-   (permission lists, multi-select). Find one in a live client and re-check
-   this selector's class name before relying on it. */
+/* TODO: couldn't find a real checkbox to test — every toggle we ran into
+   turned out to be a switch (switchIndicator_ above, which does work) */
 [class*="checkboxIndicator_"] {
   background-color: var(--fluenty-accent) !important;
   border-color: var(--fluenty-accent) !important;
@@ -948,7 +925,7 @@ main:has(> [class*="tabBody_"]),
   border-color: #2f9e5f !important;
 }
 
-/* Add Friend keeps the accent — it is a primary action. */
+/* Add Friend keeps the accent color — it's a primary action */
 [class*="addFriend_"] {
   background-color: var(--fluenty-accent) !important;
 }
@@ -964,10 +941,8 @@ main:has(> [class*="tabBody_"]),
 
 /* 11d. PROFILES */
 
-/* The [style*="--background-surface-high"] guard never matches current
-   Discord builds (that inline var isn't set on this element anymore, and
-   custom-banner profiles set different inline vars entirely) — .user-profile-popout
-   itself is stable, so style directly off that. */
+/* dropped the old [style*="--background-surface-high"] guard, it stopped
+   matching a while back — .user-profile-popout alone is stable enough */
 .user-profile-popout {
   backdrop-filter: blur(30px) saturate(1.25);
   border: 1px solid var(--fluenty-card-stroke) !important;
