@@ -57,3 +57,7 @@ Discord's class names follow a `word_hash` / `word__hash` pattern and change bet
 - Not yet confirmed (the element was never on screen during testing, so the selector follows the naming convention but is unproven): Settings Switch, Popouts, Context Menu, Modals, Modals Backdrop, Members Sidebar, Thread Sidebar.
 
 If a module doesn't animate, the selector is the first thing to check: inspect the element in Discord (enable DevTools in Vencord settings), find the real class fragment, and fix the `selector` field for that module in `modules.ts`. All the CSS generation reads from that one file. Then `pnpm build` and reload.
+
+## License
+
+MIT, same as the rest of Umbraflow. See [LICENSE](../LICENSE) at the repo root.

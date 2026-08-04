@@ -1,7 +1,7 @@
 /*
- * Vencord, a Discord client mod
+ * UmbraMotion, part of Umbraflow
  * Copyright (c) 2026 Big_Killers
- * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-License-Identifier: MIT
  */
 
 import { resolveEasing } from "./easing";
