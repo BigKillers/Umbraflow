@@ -2,10 +2,11 @@
 
 A dark theme for Discord and Garry's Mod, based on the Windows 11 Fluent look. Made from scratch.
 
-| Platform | What it themes |
+| Platform | What it does |
 |----------|----------------|
-| Discord | The whole client: chat, member list, panels, menus, and settings. One file that auto-switches between Light, Dark, and Onyx. |
-| Garry's Mod | Main menu, loading screen, VGUI scheme (console, dialogs, spawnmenu), and custom logos. |
+| Discord | Themes the whole client: chat, member list, panels, menus, and settings. One file that auto-switches between Light, Dark, and Onyx. |
+| Garry's Mod | Themes the main menu, loading screen, VGUI scheme (console, dialogs, spawnmenu), and custom logos. |
+| UmbraMotion | A Vencord plugin that animates Discord's UI: menus, modals, popouts, tooltips, messages and more, each spot configurable on its own. |
 
 ---
 
@@ -16,6 +17,7 @@ A dark theme for Discord and Garry's Mod, based on the Windows 11 Fluent look. M
 - Discord and Garry's Mod share the same look.
 - The Garry's Mod menu plays a soft hover sound when you mouse over the buttons.
 - The Discord theme is a single file with everything inlined, so there are no extra assets to install.
+- UmbraMotion adds enter animations to Discord on top of the theme, with style, speed, easing and direction settings for each part of the UI. Runs on Vencord, works with or without the theme.
 
 ---
 
@@ -81,6 +83,27 @@ Go to **Settings → Appearance → Theme** and pick Light, Dark, or Onyx. Switc
 ### How the auto-switch works
 
 Discord puts a class on the app for the current appearance (`theme-light`, `theme-dark`, or `theme-dark theme-midnight` for Onyx). Umbraflow ships all three palettes as CSS variables. Dark is the baseline, and two override blocks (`1b. THEME OVERRIDES`, at the bottom of the file) change only what's different for Light and Onyx. The layout is written once and shared by all three.
+
+---
+
+## UmbraMotion
+
+The theme changes how Discord looks. UmbraMotion changes how it moves. It's a Vencord plugin that plays an enter animation when parts of the UI appear: switching servers or channels, opening menus and popouts, new messages coming in, tooltips, modals, and so on. Thirteen spots in total, and each one has its own style (fade, slide, blur, scale, or slip), duration, easing curve, and direction, so you can tune it or turn off the parts you don't want.
+
+It also respects your OS reduced-motion setting out of the box, and there's a performance mode that disables the two heaviest animations if your machine stutters.
+
+### Install
+
+UmbraMotion is a userplugin, which means it runs on a Vencord built from source rather than the standard installer. Short version:
+
+1. Clone [Vencord](https://github.com/Vendicated/Vencord) and run `pnpm install --frozen-lockfile`.
+2. Copy the [`UmbraMotion/`](UmbraMotion/) folder from this repo into Vencord's `src/userplugins/`.
+3. `pnpm build`, then `pnpm inject` (quit Discord fully first, from the tray icon).
+4. Relaunch Discord and enable **UmbraMotion** under Settings → Vencord → Plugins.
+
+The full walkthrough, plus how the plugin works and how to fix a selector if Discord renames a class, is in [UmbraMotion/README.md](UmbraMotion/README.md).
+
+Works fine with or without the Umbraflow theme. They don't touch each other.
 
 ---
 
