@@ -29,7 +29,7 @@ A dark theme for Discord and Garry's Mod, based on the Windows 11 Fluent look. M
 
 ## Discord
 
-`Discord-Themes/umbraflow.css` holds three palettes and picks one automatically based on your Discord appearance:
+`Discord-Themes/umbraflow.theme.css` holds three palettes and picks one automatically based on your Discord appearance:
 
 | Discord appearance | Palette |
 |--------------------|---------|
@@ -39,19 +39,19 @@ A dark theme for Discord and Garry's Mod, based on the Windows 11 Fluent look. M
 
 ### Install
 
-Download `Discord-Themes/umbraflow.css` from this repo (or the [Releases](../../releases) page), then pick your client mod:
+Download `Discord-Themes/umbraflow.theme.css` from this repo (or the [Releases](../../releases) page), then pick your client mod:
 
 <details open>
 <summary><strong>Vencord</strong></summary>
 
 1. Install [Vencord](https://vencord.dev/).
 2. Discord → **Settings** → **Vencord → Themes** → **Open Themes Folder**.
-3. Drop `umbraflow.css` into that folder.
+3. Drop `umbraflow.theme.css` into that folder.
 4. Enable **Umbraflow** in the Themes list.
 
 If you want it to update itself, skip the download and add this under **Themes → Online Themes** instead:
 ```
-https://raw.githubusercontent.com/BigKillers/Umbraflow/main/Discord-Themes/umbraflow.css
+https://raw.githubusercontent.com/BigKillers/Umbraflow/main/Discord-Themes/umbraflow.theme.css
 ```
 </details>
 
@@ -66,7 +66,7 @@ Same as Vencord: **Settings → Equicord → Themes → Open Themes Folder**, dr
 
 1. Install [BetterDiscord](https://betterdiscord.app/).
 2. Discord → **Settings** → **Themes** → **Open Themes Folder**.
-3. Drop `umbraflow.css` into that folder.
+3. Drop `umbraflow.theme.css` into that folder.
 4. Toggle **Umbraflow** on in the Themes list.
 
 The file has the metadata header BetterDiscord needs, so it shows up with its name and author.
@@ -120,7 +120,7 @@ Hovering a menu button plays `sound/umbraflow/hover.wav`. Want your own sound? D
 
 ## Customization
 
-The Discord colors are all CSS variables. The Dark palette is the `:root` block near the top of `umbraflow.css`. Light and Onyx are the two blocks under `1b. THEME OVERRIDES` at the bottom, and each one only lists what's different. Edit a value and reload. The layout rules read the variables, so one change applies to all three palettes.
+The Discord colors are all CSS variables. The Dark palette is the `:root` block near the top of `umbraflow.theme.css`. Light and Onyx are the two blocks under `1b. THEME OVERRIDES` at the bottom, and each one only lists what's different. Edit a value and reload. The layout rules read the variables, so one change applies to all three palettes.
 
 ---
 
