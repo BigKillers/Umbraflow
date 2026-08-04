@@ -88,6 +88,20 @@ Discord puts a class on the app for the current appearance (`theme-light`, `them
 
 The `Gmod-Theme/` folder mirrors your `garrysmod` directory. It has the main menu, loading screen, VGUI scheme (`resource/SourceScheme.res`), custom logos, and a hover sound for the menu buttons.
 
+### Requires Chromium
+
+Garry's Mod draws its menu with an embedded browser, and this theme leans on modern CSS (blur, variables, transitions) that only work on GMod's newer **Chromium** engine. On the old Awesomium engine the menu comes out broken and unstyled, so you have to put GMod on a Chromium branch before the theme will look right. It's a one-time Steam setting:
+
+1. In Steam, right-click **Garry's Mod** → **Properties**.
+2. Open the **Betas** tab.
+3. In the beta dropdown, pick one:
+   - **`x86-64`** — the 64-bit build, which runs Chromium by default. Go with this one unless you have a reason not to.
+   - **`chromium`** — the 32-bit build with Chromium swapped in.
+4. Close the window and let Steam download the update.
+5. Launch Garry's Mod once so it's running on Chromium, then install the theme below.
+
+No beta code is needed, both branches are public. If the menu ever shows up plain or half-styled, you're still on Awesomium and haven't switched branches yet.
+
 ### Install
 
 **Back up your `garrysmod` folder first.** This replaces core menu files.
